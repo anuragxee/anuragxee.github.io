@@ -344,3 +344,172 @@
 
   requestAnimationFrame(tick);
 })();
+/* ============================================================
+   SOUND EFFECTS — Greeting + Click sounds
+   Uses Web Audio API (no files) + Web Speech API (greeting)
+   Browsers block autoplay, so greeting fires on first interaction
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var audioCtx = null;
+  var soundEnabled = true;
+  var greetingPlayed = false;
+
+  /* Restore mute preference from last visit */
+  try {
+    if (localStorage.getItem('ads_sound_muted') === '1') {
+      soundEnabled = false;
+    }
+  } catch (e) { /* ignore */ }
+
+  /* Create AudioContext on first use */
+  function getCtx() {
+    if (!audioCtx) {
+      try {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      } catch (e) {
+        return null;
+      }
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
+  /* ---------- CLICK SOUND (short clean "tick") ---------- */
+  function playClick() {
+    if (!soundEnabled) return;
+    var ctx = getCtx();
+    if (!ctx) return;
+
+    var now = ctx.currentTime;
+
+    // High tick
+    var osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, now);
+    osc.frequency.exponentialRampToValueAtTime(1200, now + 0.04);
+
+    var gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.08, now + 0.005);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.1);
+  }
+
+  /* ---------- HOVER SOUND (subtle softer tick) ---------- */
+  function playHover() {
+    if (!soundEnabled) return;
+    var ctx = getCtx();
+    if (!ctx) return;
+
+    var now = ctx.currentTime;
+    var osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1600, now);
+
+    var gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.025, now + 0.004);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.06);
+  }
+
+  /* ---------- GREETING (voice via SpeechSynthesis) ---------- */
+  function playGreeting() {
+    if (!soundEnabled || greetingPlayed) return;
+    greetingPlayed = true;
+
+    if (!('speechSynthesis' in window)) return;
+
+    // Small delay so first interaction feels natural
+    setTimeout(function () {
+      try {
+        var utter = new SpeechSynthesisUtterance(
+          'Hey, welcome to Anurag Digital Services.'
+        );
+        utter.rate = 1.0;
+        utter.pitch = 1.05;
+        utter.volume = 0.85;
+        utter.lang = 'en-IN'; // Indian English
+
+        // Prefer an Indian English voice if available
+        var voices = window.speechSynthesis.getVoices();
+        var preferred = voices.find(function (v) {
+          return /en-IN|en_IN|India/i.test(v.lang + ' ' + v.name);
+        });
+        if (preferred) utter.voice = preferred;
+
+        window.speechSynthesis.cancel(); // clear any queued
+        window.speechSynthesis.speak(utter);
+      } catch (e) { /* silent */ }
+    }, 350);
+  }
+
+  /* ---------- ATTACH CLICK SOUNDS TO INTERACTIVE ELEMENTS ---------- */
+  var clickTargets = 'a, button, .btn, .service-card, .portfolio-card, .skill-item, .contact-card, input, select, textarea, .nav-link, .sound-toggle';
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest(clickTargets)) {
+      playClick();
+    }
+    // First click anywhere also triggers greeting if not yet played
+    playGreeting();
+  }, true);
+
+  /* Hover sound on buttons/links (desktop only) */
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.addEventListener('mouseover', function (e) {
+      if (e.target.closest('a, button, .btn')) {
+        playHover();
+      }
+    }, true);
+  }
+
+  /* ---------- TRIGGER GREETING ON FIRST INTERACTION ---------- */
+  function armGreeting() {
+    // slight delay lets audioctx initialize cleanly
+    setTimeout(playGreeting, 100);
+    window.removeEventListener('scroll', armGreeting);
+    window.removeEventListener('mousemove', armGreeting);
+    window.removeEventListener('touchstart', armGreeting);
+    window.removeEventListener('keydown', armGreeting);
+  }
+  window.addEventListener('scroll', armGreeting, { passive: true, once: true });
+  window.addEventListener('mousemove', armGreeting, { passive: true, once: true });
+  window.addEventListener('touchstart', armGreeting, { passive: true, once: true });
+  window.addEventListener('keydown', armGreeting, { once: true });
+
+  /* ---------- SOUND TOGGLE BUTTON ---------- */
+  var toggleBtn = document.getElementById('soundToggle');
+  if (toggleBtn) {
+    // Reflect saved state
+    if (!soundEnabled) toggleBtn.classList.add('muted');
+
+    toggleBtn.addEventListener('click', function (e) {
+      e.stopPropagation(); // don't play click sound on the toggle itself
+      soundEnabled = !soundEnabled;
+      toggleBtn.classList.toggle('muted', !soundEnabled);
+
+      try {
+        localStorage.setItem('ads_sound_muted', soundEnabled ? '0' : '1');
+      } catch (err) { /* ignore */ }
+
+      if (soundEnabled) {
+        // tiny confirmation tick when unmuting
+        setTimeout(playClick, 60);
+      } else if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    });
+  }
+
+})();
