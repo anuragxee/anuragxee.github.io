@@ -572,59 +572,386 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   .hero-tagline .tw-cursor { animation: none !important; }
   .reveal { opacity: 1; filter: none; transform: none; transition: none; }
 }
-/* ============ CHARACTER ILLUSTRATIONS ============ */
+/* ============================================================
+   3D SMART BOT CHARACTER
+   ============================================================ */
 
-.hero-character {
-  display: none; /* hidden by default on mobile */
-}
-
-.section-character {
-  max-width: 280px;
-  margin: 0 auto 34px;
-  text-align: center;
-  animation: floatCharacter 6s ease-in-out infinite;
-}
-
-.section-character img {
-  width: 100%;
-  height: auto;
-  display: block;
+.bot-slot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 auto;
-  filter: drop-shadow(0 20px 40px rgba(34, 211, 238, 0.15));
+  width: 100%;
 }
 
-@keyframes floatCharacter {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-10px); }
+.bot-3d {
+  position: relative;
+  width: 200px;
+  height: 240px;
+  perspective: 1000px;
+  perspective-origin: 50% 40%;
 }
 
-/* Hide character from Skills section on dark bg is fine — no change needed */
+.bot-scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: botFloat 5s ease-in-out infinite;
+}
 
-/* Tablet and up — show hero character next to hero copy */
+@keyframes botFloat {
+  0%, 100% { transform: translateY(0)     rotateY(-10deg); }
+  50%      { transform: translateY(-16px) rotateY(10deg); }
+}
+
+/* --- Floating shadow below the bot --- */
+.bot-shadow {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  width: 110px;
+  height: 14px;
+  background: radial-gradient(ellipse, rgba(34,211,238,0.45), transparent 70%);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  filter: blur(6px);
+  animation: botShadow 5s ease-in-out infinite;
+}
+@keyframes botShadow {
+  0%, 100% { transform: translateX(-50%) scale(1);    opacity: 0.75; }
+  50%      { transform: translateX(-50%) scale(0.78); opacity: 0.4; }
+}
+
+/* --- Rotating orbits --- */
+.bot-orbit {
+  position: absolute;
+  top: 50%; left: 50%;
+  border: 1px dashed rgba(34,211,238,0.4);
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+.bot-orbit-1 {
+  width: 180px; height: 180px;
+  margin: -90px 0 0 -90px;
+  animation: orbitSpin1 12s linear infinite;
+}
+.bot-orbit-2 {
+  width: 160px; height: 160px;
+  margin: -80px 0 0 -80px;
+  animation: orbitSpin2 16s linear infinite reverse;
+}
+@keyframes orbitSpin1 {
+  from { transform: rotateX(75deg) rotateZ(0); }
+  to   { transform: rotateX(75deg) rotateZ(360deg); }
+}
+@keyframes orbitSpin2 {
+  from { transform: rotateX(75deg) rotateY(60deg) rotateZ(0); }
+  to   { transform: rotateX(75deg) rotateY(60deg) rotateZ(360deg); }
+}
+.bot-orbit::before,
+.bot-orbit::after {
+  content: '';
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 12px #22d3ee, 0 0 24px rgba(34,211,238,0.7);
+}
+.bot-orbit::before { top: -4px; left: 50%; margin-left: -4px; }
+.bot-orbit::after  { bottom: -4px; left: 50%; margin-left: -4px; }
+
+/* --- Body --- */
+.bot-body {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+/* --- Head --- */
+.bot-head {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateZ(10px);
+  width: 108px;
+  height: 84px;
+  border-radius: 24px;
+  background: linear-gradient(160deg, #12203f 0%, #0a1428 55%, #050a16 100%);
+  border: 2px solid rgba(34,211,238,0.4);
+  box-shadow:
+    inset 0 -8px 20px rgba(34,211,238,0.15),
+    inset 0 4px 12px rgba(255,255,255,0.06),
+    0 14px 32px rgba(0,0,0,0.6),
+    0 0 40px rgba(34,211,238,0.25);
+  transform-style: preserve-3d;
+}
+.bot-head::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: 12px; right: 12px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #22d3ee, transparent);
+  border-radius: 2px;
+  filter: blur(1px);
+}
+
+/* --- Antenna --- */
+.bot-antenna {
+  position: absolute;
+  top: -18px; left: 50%;
+  transform: translateX(-50%);
+  width: 3px; height: 18px;
+  background: linear-gradient(180deg, #22d3ee, #60a5fa);
+  border-radius: 2px;
+}
+.bot-antenna span {
+  position: absolute;
+  top: -10px; left: 50%;
+  transform: translateX(-50%);
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #a5f3fc, #22d3ee 60%, #0891b2);
+  box-shadow: 0 0 12px #22d3ee, 0 0 24px rgba(34,211,238,0.7);
+  animation: antennaPulse 2s ease-in-out infinite;
+}
+@keyframes antennaPulse {
+  0%, 100% { transform: translateX(-50%) scale(1);    box-shadow: 0 0 12px #22d3ee, 0 0 24px rgba(34,211,238,0.7); }
+  50%      { transform: translateX(-50%) scale(1.25); box-shadow: 0 0 20px #22d3ee, 0 0 40px rgba(34,211,238,0.9); }
+}
+
+/* --- Visor with LED eyes --- */
+.bot-visor {
+  position: absolute;
+  top: 24px; left: 12px; right: 12px;
+  height: 36px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #020813, #06121f);
+  border: 1px solid rgba(34,211,238,0.55);
+  box-shadow: inset 0 0 20px rgba(34,211,238,0.35), 0 0 20px rgba(34,211,238,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  overflow: hidden;
+}
+.bot-visor::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -40%;
+  width: 40%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,0.35), transparent);
+  animation: visorScan 3.5s ease-in-out infinite;
+}
+@keyframes visorScan {
+  0%   { left: -40%; }
+  100% { left: 120%; }
+}
+.bot-eye {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #e0fbff, #22d3ee 45%, #0891b2);
+  box-shadow:
+    0 0 12px #22d3ee,
+    0 0 22px rgba(34,211,238,0.8),
+    inset 0 0 4px rgba(255,255,255,0.9);
+  animation: botBlink 4.5s infinite;
+  position: relative;
+  z-index: 2;
+}
+@keyframes botBlink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  93%           { transform: scaleY(0.1); }
+  96%           { transform: scaleY(1); }
+}
+
+/* --- Side sensors --- */
+.bot-ear {
+  position: absolute;
+  top: 50%;
+  margin-top: -14px;
+  width: 10px; height: 28px;
+  background: linear-gradient(180deg, #1e40af, #0a1428);
+  border: 1.5px solid rgba(34,211,238,0.5);
+  box-shadow: 0 0 12px rgba(34,211,238,0.4);
+}
+.bot-ear.left  { left: -12px;  border-radius: 8px 0 0 8px; }
+.bot-ear.right { right: -12px; border-radius: 0 8px 8px 0; }
+
+/* --- Neck --- */
+.bot-neck {
+  position: absolute;
+  top: 100px; left: 50%;
+  transform: translateX(-50%);
+  width: 24px; height: 10px;
+  background: linear-gradient(180deg, #0a1428, #050a16);
+  border-left: 1.5px solid rgba(34,211,238,0.3);
+  border-right: 1.5px solid rgba(34,211,238,0.3);
+}
+
+/* --- Torso --- */
+.bot-torso {
+  position: absolute;
+  top: 110px; left: 50%;
+  transform: translateX(-50%) translateZ(6px);
+  width: 86px; height: 74px;
+  border-radius: 20px 20px 26px 26px;
+  background: linear-gradient(160deg, #12203f 0%, #0a1428 55%, #050a16 100%);
+  border: 2px solid rgba(34,211,238,0.35);
+  box-shadow:
+    inset 0 -8px 18px rgba(34,211,238,0.12),
+    inset 0 4px 10px rgba(255,255,255,0.05),
+    0 12px 28px rgba(0,0,0,0.55),
+    0 0 28px rgba(34,211,238,0.2);
+  overflow: hidden;
+}
+.bot-chest {
+  position: absolute;
+  top: 20px; left: 50%;
+  transform: translateX(-50%);
+  width: 44px; height: 34px;
+  border-radius: 10px;
+  background: radial-gradient(circle at 50% 40%, #06121f, #020810);
+  border: 1px solid rgba(34,211,238,0.5);
+  box-shadow: inset 0 0 16px rgba(34,211,238,0.4);
+  overflow: hidden;
+}
+.bot-chest::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #e0fbff, #22d3ee 45%, #0891b2);
+  box-shadow: 0 0 14px #22d3ee, 0 0 26px rgba(34,211,238,0.7);
+  animation: corePulse 2.2s ease-in-out infinite;
+}
+@keyframes corePulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%      { transform: translate(-50%, -50%) scale(1.2); }
+}
+.bot-chest::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -50%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,0.4), transparent);
+  animation: chestScan 2.5s ease-in-out infinite;
+}
+@keyframes chestScan {
+  0%   { left: -50%; }
+  100% { left: 120%; }
+}
+
+/* --- Arms --- */
+.bot-arm {
+  position: absolute;
+  top: 120px;
+  width: 16px; height: 58px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #12203f, #050a16);
+  border: 1.5px solid rgba(34,211,238,0.35);
+  box-shadow: 0 0 16px rgba(34,211,238,0.2);
+}
+.bot-arm.left  { left: 12px;  transform-origin: top center; animation: armWaveL 4s ease-in-out infinite; }
+.bot-arm.right { right: 12px; transform-origin: top center; animation: armWaveR 4s ease-in-out infinite; }
+@keyframes armWaveL {
+  0%, 100% { transform: rotate(-4deg); }
+  50%      { transform: rotate(-14deg); }
+}
+@keyframes armWaveR {
+  0%, 100% { transform: rotate(4deg); }
+  50%      { transform: rotate(14deg); }
+}
+.bot-arm::after {
+  content: '';
+  position: absolute;
+  bottom: -8px; left: 50%;
+  transform: translateX(-50%);
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #60a5fa, #1e40af);
+  box-shadow: 0 0 10px rgba(96,165,250,0.7);
+}
+
+/* --- Floating particles --- */
+.bot-particle {
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 8px #22d3ee;
+  pointer-events: none;
+}
+.bot-particle:nth-of-type(1) { top: 20%; left: 10%;  animation: particle1 4s   ease-in-out infinite; }
+.bot-particle:nth-of-type(2) { top: 70%; right: 8%;  animation: particle2 5s   ease-in-out infinite; }
+.bot-particle:nth-of-type(3) { top: 45%; left: 5%;   animation: particle3 6s   ease-in-out infinite; }
+.bot-particle:nth-of-type(4) { top: 15%; right: 15%; animation: particle4 5.5s ease-in-out infinite; }
+@keyframes particle1 {
+  0%, 100% { transform: translate(0, 0);        opacity: 0.4; }
+  50%      { transform: translate(-6px, -14px);  opacity: 1; }
+}
+@keyframes particle2 {
+  0%, 100% { transform: translate(0, 0);        opacity: 0.4; }
+  50%      { transform: translate(8px, -12px);   opacity: 1; }
+}
+@keyframes particle3 {
+  0%, 100% { transform: translate(0, 0);        opacity: 0.4; }
+  50%      { transform: translate(-8px, 10px);   opacity: 1; }
+}
+@keyframes particle4 {
+  0%, 100% { transform: translate(0, 0);        opacity: 0.4; }
+  50%      { transform: translate(6px, 12px);    opacity: 1; }
+}
+
+/* --- Section wrappers --- */
+.hero-character { display: none; }
+.section-character {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 34px;
+}
+.section-character .bot-slot { margin: 0; }
+
+/* --- Hero layout with bot on desktop --- */
 @media (min-width: 900px) {
   .hero-grid {
-    grid-template-columns: 1.1fr 0.55fr 0.75fr;
-    gap: 32px;
+    grid-template-columns: 1.05fr 0.55fr 0.75fr;
+    gap: 28px;
   }
   .hero-character {
-    display: block;
-    max-width: 320px;
-    animation: floatCharacter 6s ease-in-out infinite;
-  }
-  .hero-character img {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 30px 60px rgba(34, 211, 238, 0.2));
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
-/* Slightly bigger character on very wide screens */
-@media (min-width: 1200px) {
-  .section-character { max-width: 320px; }
+/* --- Mobile sizing --- */
+@media (max-width: 640px) {
+  .bot-3d { width: 170px; height: 210px; }
+  .bot-head { width: 92px; height: 72px; top: 16px; }
+  .bot-visor { top: 20px; height: 32px; gap: 18px; }
+  .bot-eye { width: 14px; height: 14px; }
+  .bot-torso { width: 74px; height: 64px; top: 96px; }
+  .bot-arm { top: 104px; height: 50px; }
+  .bot-neck { top: 88px; }
+  .bot-orbit-1 { width: 150px; height: 150px; margin: -75px 0 0 -75px; }
+  .bot-orbit-2 { width: 132px; height: 132px; margin: -66px 0 0 -66px; }
+  .bot-shadow { width: 90px; }
 }
 
-/* Respect reduced motion */
+/* --- Reduced motion --- */
 @media (prefers-reduced-motion: reduce) {
-  .section-character,
-  .hero-character { animation: none !important; }
-}
+  .bot-scene,
+  .bot-orbit,
+  .bot-eye,
+  .bot-antenna span,
+  .bot-arm,
+  .bot-chest::before,
+  .bot-chest::after,
+  .bot-visor::after,
+  .bot-shadow,
+  .bot-particle { animation: none !important; }
+                          }
