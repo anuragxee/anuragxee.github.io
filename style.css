@@ -955,3 +955,134 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   .bot-shadow,
   .bot-particle { animation: none !important; }
                           }
+/* ============================================================
+   ANIME SCROLL COMPANION + ANIME CURSOR
+   ============================================================ */
+
+/* ---------- Scroll companion ---------- */
+.scroll-companion {
+  position: fixed;
+  right: 16px;
+  bottom: 0;
+  width: 130px;
+  height: auto;
+  z-index: 90;
+  pointer-events: none;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: opacity .5s ease;
+}
+.companion-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 12px 24px rgba(34,211,238,0.28));
+}
+
+/* Idle breathing (subtle squash + bob) */
+.companion-svg .c-body,
+.companion-svg .c-head {
+  transform-origin: 100px 200px;
+  animation: cBreathe 3.6s ease-in-out infinite;
+}
+@keyframes cBreathe {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50%      { transform: translateY(-3px) scaleY(1.015); }
+}
+
+/* Hair sway */
+.companion-svg .c-head {
+  animation: cBreathe 3.6s ease-in-out infinite, cSway 5s ease-in-out infinite;
+  transform-origin: 100px 150px;
+}
+@keyframes cSway {
+  0%, 100% { transform: rotate(-1.6deg) translateY(0); }
+  50%      { transform: rotate(1.6deg)  translateY(-3px); }
+}
+
+/* Eyes blink */
+.companion-svg .c-eye-l,
+.companion-svg .c-eye-r {
+  transform-origin: center 128px;
+  animation: cBlink 5s infinite;
+}
+@keyframes cBlink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  94%           { transform: scaleY(0.08); }
+  96%           { transform: scaleY(1); }
+}
+
+/* Arms swing */
+.companion-svg .c-arm-left  { transform-origin: 46px 220px;  animation: cArmL 3.2s ease-in-out infinite; }
+.companion-svg .c-arm-right { transform-origin: 154px 220px; animation: cArmR 3.2s ease-in-out infinite; }
+@keyframes cArmL { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(-11deg); } }
+@keyframes cArmR { 0%,100% { transform: rotate(3deg);  } 50% { transform: rotate(11deg);  } }
+
+/* Floating sparks around character */
+.companion-svg .c-spark { animation: cFloat 4s ease-in-out infinite; }
+.companion-svg .c-spark.s1 { animation-delay: 0s;   }
+.companion-svg .c-spark.s2 { animation-delay: 1s;   }
+.companion-svg .c-spark.s3 { animation-delay: 2s;   }
+.companion-svg .c-spark.s4 { animation-delay: 3s;   }
+@keyframes cFloat {
+  0%, 100% { opacity: .3; transform: translateY(0)   scale(1); }
+  50%      { opacity: 1;  transform: translateY(-10px) scale(1.4); }
+}
+
+/* Walking state (added by JS while scrolling) */
+.scroll-companion.walking .companion-svg {
+  animation: cWalkBob .28s ease-in-out infinite;
+}
+@keyframes cWalkBob {
+  0%, 100% { transform: translateY(0)   rotate(-2.5deg); }
+  50%      { transform: translateY(-6px) rotate(2.5deg); }
+}
+
+/* Responsive size */
+@media (max-width: 820px) {
+  .scroll-companion { width: 96px; right: 8px; }
+}
+@media (max-width: 480px) {
+  .scroll-companion { width: 82px; right: 6px; opacity: .92; }
+}
+
+/* ---------- Anime cursor (desktop only) ---------- */
+.cursor-character {
+  position: fixed;
+  top: 0; left: 0;
+  width: 42px;
+  height: 42px;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width .22s ease, height .22s ease, opacity .25s ease;
+  opacity: 0;
+  will-change: transform;
+}
+.cursor-character svg {
+  width: 100%; height: 100%;
+  filter: drop-shadow(0 0 10px rgba(34,211,238,0.85))
+          drop-shadow(0 0 20px rgba(34,211,238,0.35));
+}
+.cursor-character.active { opacity: 1; }
+.cursor-character.grow   { width: 68px; height: 68px; }
+
+/* Hide native cursor on desktop */
+body.cursor-none,
+body.cursor-none a,
+body.cursor-none button,
+body.cursor-none input,
+body.cursor-none select,
+body.cursor-none textarea { cursor: none !important; }
+
+/* Never show the anime cursor on touch devices */
+@media (hover: none), (pointer: coarse) {
+  .cursor-character { display: none !important; }
+  body.cursor-none, body.cursor-none * { cursor: auto !important; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-companion .companion-svg *,
+  .scroll-companion.walking .companion-svg { animation: none !important; }
+}
