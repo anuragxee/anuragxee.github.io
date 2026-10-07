@@ -53,7 +53,7 @@
   window.addEventListener('scroll', setActive, { passive: true });
   setActive();
 
-  /* ---------- 4. Scroll reveal with blur ---------- */
+  /* ---------- 4. Scroll reveal ---------- */
   var reveals = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries, obs) {
@@ -150,7 +150,7 @@
     setTimeout(tick, 600);
   }
 
-  /* ---------- 9. 3D tilt on service & portfolio cards ---------- */
+  /* ---------- 9. 3D tilt on cards (desktop only) ---------- */
   var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   function addTilt(selector, maxTilt) {
@@ -177,25 +177,7 @@
   addTilt('.service-card',   7);
   addTilt('.portfolio-card', 7);
 
-  /* ---------- 10. Hero card parallax ---------- */
-  var hero     = document.querySelector('.hero');
-  var heroCard = document.querySelector('.hero-card');
-  if (canHover && hero && heroCard) {
-    hero.addEventListener('mousemove', function (e) {
-      var rect = hero.getBoundingClientRect();
-      var x = (e.clientX - rect.left) / rect.width  - 0.5;
-      var y = (e.clientY - rect.top)  / rect.height - 0.5;
-      heroCard.style.transform =
-        'perspective(1200px) ' +
-        'rotateY(' + (x * 8).toFixed(2) + 'deg) ' +
-        'rotateX(' + (-y * 8).toFixed(2) + 'deg)';
-    });
-    hero.addEventListener('mouseleave', function () {
-      heroCard.style.transform = '';
-    });
-  }
-
-  /* ---------- 11. Cursor glow (desktop only) ---------- */
+  /* ---------- 10. Cursor glow (desktop only) ---------- */
   if (canHover) {
     var glow = document.createElement('div');
     glow.className = 'cursor-glow';
@@ -218,7 +200,7 @@
     })();
   }
 
-  /* ---------- 12. Contact form (mailto) ---------- */
+  /* ---------- 11. Contact form (mailto) ---------- */
   var form = document.getElementById('contactForm');
   var status = document.getElementById('formStatus');
   if (form) {
