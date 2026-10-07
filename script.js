@@ -231,7 +231,7 @@
         'Service: ' + (service || 'Not specified') + '\n\n' +
         'Message:\n' + message + '\n';
 
-      var mailto = 'mailto:anurag123kumar1234567@gmail.com'
+      var mailto = 'mailto:beanurag4@gmail.com'
         + '?subject=' + encodeURIComponent(subject)
         + '&body=' + encodeURIComponent(body);
 
@@ -240,7 +240,7 @@
       window.location.href = mailto;
 
       setTimeout(function () {
-        status.textContent = 'If nothing opened, email anurag123kumar1234567@gmail.com directly.';
+        status.textContent = 'If nothing opened, email beanurag4@gmail.com directly.';
       }, 2500);
     });
   }
