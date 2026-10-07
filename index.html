@@ -1,130 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AK Digital Services — freelance content, social media, YouTube and design services.">
-  <title>AK Digital Services | Freelance Digital Services</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050a16">
+<title>Anurag Digital Services — Digital Marketing, Social Media & E-commerce | Patna</title>
+<meta name="description" content="Anurag Kumar — Digital Marketing, Social Media & E-commerce specialist. Amazon/Flipkart listing, SEO, content creation, Excel & data support. Patna, Bihar, India.">
+<meta name="author" content="Anurag Kumar">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://anuraxgee.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Anurag Digital Services — Digital Marketing, Social Media & E-commerce">
+<meta property="og:description" content="Let's Build Something Great. Digital marketing, social media, e-commerce support from Patna, India.">
+<meta property="og:url" content="https://anuraxgee.github.io/">
+<meta property="og:image" content="https://anuraxgee.github.io/assets/logo.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Anurag Digital Services",
+  "description": "Digital marketing, social media management, e-commerce product listing, SEO, content creation, data entry and Excel support.",
+  "url": "https://anuraxgee.github.io/",
+  "telephone": "+91-7061086068",
+  "email": "anurag123kumar1234567@gmail.com",
+  "founder": { "@type": "Person", "name": "Anurag Kumar" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Patna", "addressRegion": "Bihar", "addressCountry": "IN" },
+  "areaServed": "IN"
+}
+</script>
 </head>
 <body>
-  <header class="header">
-    <a class="brand" href="#home" aria-label="AK Digital Services home">
-      <span class="logo">AK</span>
-      <span><strong>AK Digital Services</strong><small>Freelance Digital Services</small></span>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="header">
+  <div class="container nav-wrap">
+    <a class="brand" href="#home" aria-label="Anurag Digital Services — Home">
+      <img src="assets/logo.svg" alt="Anurag Digital Services AN logo" class="brand-mark" width="44" height="44">
+      <span class="brand-text"><strong>ANURAG</strong><span>DIGITAL SERVICES</span></span>
     </a>
-    <button class="menu-toggle" aria-label="Open menu">☰</button>
-    <nav class="nav">
-      <a class="active" href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#testimonials">Testimonials</a>
-      <a href="#contact">Contact</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <ul>
+        <li><a class="nav-link" href="#home">Home</a></li>
+        <li><a class="nav-link" href="#about">About</a></li>
+        <li><a class="nav-link" href="#services">Services</a></li>
+        <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
+        <li><a class="nav-link" href="#skills">Skills</a></li>
+        <li><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+      <a class="btn btn-primary nav-cta" href="#contact">Get in Touch</a>
     </nav>
-    <a class="btn btn-small" href="#contact">Get a Quote</a>
-  </header>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
 
-  <main>
-    <section id="home" class="hero">
-      <div class="hero-content">
-        <p class="eyebrow">HELLO, I'M A FREELANCER</p>
-        <h1>Turning Ideas Into <span>Digital Reality</span></h1>
-        <p class="hero-text">I help individuals and businesses build a stronger online presence through content, social media, YouTube support and creative digital solutions.</p>
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="hero-badge"><span class="pulse-dot" aria-hidden="true"></span> Available for freelance projects</p>
+        <h1 class="hero-title">
+          <span class="hero-title-top">ANURAG</span>
+          <span class="hero-title-bottom">DIGITAL SERVICES</span>
+        </h1>
+        <p class="hero-tagline">Your Growth <span aria-hidden="true">|</span> My Skills <span aria-hidden="true">|</span> Our Success</p>
+        <p class="hero-lead">
+          Digital marketing, social media and e-commerce support — plus accurate data entry,
+          Excel and record management. I help brands look professional online and keep their
+          data and listings in order.
+        </p>
+        <ul class="hero-chips">
+          <li>Digital Marketing</li><li>Social Media</li><li>E-commerce</li><li>Data &amp; Excel</li>
+        </ul>
         <div class="hero-actions">
-          <a class="btn" href="#contact">Hire Me →</a>
-          <a class="btn btn-outline" href="#portfolio">View My Work</a>
-        </div>
-        <div class="trust-row">
-          <span>✓ On-Time Delivery</span>
-          <span>✓ Clear Communication</span>
-          <span>✓ Affordable Pricing</span>
+          <a class="btn btn-primary" href="#contact">Hire Me
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#portfolio">View My Work</a>
         </div>
       </div>
-    </section>
 
-    <section id="services" class="section">
-      <div class="section-intro">
-        <p class="eyebrow">WHAT I DO</p>
-        <h2>My Services</h2>
-        <p>Practical digital services designed to help you publish, promote and grow online.</p>
-      </div>
-      <div class="cards">
-        <article class="card"><div class="icon">✎</div><h3>Content Writing</h3><p>Website content, social posts, captions, articles and other written content.</p></article>
-        <article class="card"><div class="icon">◉</div><h3>Social Media</h3><p>Content planning, posting ideas, captions and audience-growth support.</p></article>
-        <article class="card"><div class="icon">▶</div><h3>YouTube Support</h3><p>Titles, descriptions, thumbnails, SEO ideas and channel-growth strategy.</p></article>
-        <article class="card"><div class="icon">✦</div><h3>Graphic Design</h3><p>Simple, clean designs for thumbnails, posts, banners and branding.</p></article>
-      </div>
-    </section>
+      <aside class="hero-card" aria-label="Profile summary">
+        <img class="hero-logo" src="assets/logo.svg" alt="Anurag Digital Services logo" width="104" height="104">
+        <h2 class="hero-card-name">Anurag Kumar</h2>
+        <p class="hero-card-role">Digital Marketing · Social Media · E-commerce</p>
+        <ul class="hero-card-list">
+          <li><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Patna, Bihar, India</li>
+          <li><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 8.2-7 9-4-.8-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg> Media Executive — NSMCH</li>
+          <li><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10M15 10v10"/></svg> Excel · Amazon · Flipkart</li>
+        </ul>
+        <a class="btn btn-primary btn-block" href="#contact">Start a Project</a>
+        <p class="hero-card-note">Let's Build Something Great</p>
+      </aside>
+    </div>
+  </section>
 
-    <section id="about" class="section about">
-      <div class="about-avatar">AK</div>
-      <div>
-        <p class="eyebrow">ABOUT ME</p>
-        <h2>Hi, I'm your digital partner.</h2>
-        <p>I focus on reliable freelance support for creators, small businesses and individuals who want a professional online presence without unnecessary complexity.</p>
-        <div class="stats">
-          <div><strong>100%</strong><span>Dedicated Work</span></div>
-          <div><strong>Fast</strong><span>Communication</span></div>
-          <div><strong>India</strong><span>Available Worldwide</span></div>
+  <!-- ABOUT -->
+  <section class="section section-light" id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">About Me</span>
+        <h2 class="section-title">Anurag Kumar</h2>
+        <p class="section-sub">Results-driven Digital Marketing &amp; E-commerce specialist based in Patna, Bihar.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-panel reveal">
+          <div class="about-panel-head">
+            <img src="assets/logo.svg" alt="" width="54" height="54" loading="lazy">
+            <div><strong>Anurag Kumar</strong><span>Patna, Bihar, India</span></div>
+          </div>
+          <ul class="about-facts">
+            <li><span>Current role</span><strong>Media Executive — Digital Marketing</strong></li>
+            <li><span>Organisation</span><strong>Netaji Subhas Medical College &amp; Hospital (NSMCH)</strong></li>
+            <li><span>Also experienced in</span><strong>E-commerce operations, sales support</strong></li>
+            <li><span>Education</span><strong>B.B.M. — Patiputra University (2026)</strong></li>
+          </ul>
+        </div>
+
+        <div class="about-content reveal">
+          <p>
+            I am a <strong>results-driven Digital Marketing and E-commerce specialist</strong>
+            with hands-on experience in executing social media strategies, campaign management
+            and marketplace operations. I optimise Amazon and Flipkart product listings, create
+            engaging multimedia content and align digital communication to improve brand
+            visibility and performance.
+          </p>
+          <p>
+            I also bring strong <strong>data and documentation discipline</strong> — Microsoft Excel,
+            data entry, record management and reporting — which helps me keep projects organised
+            and measurable. I work comfortably with both creative tasks and structured data.
+          </p>
+          <ul class="about-highlights">
+            <li>Social media calendars &amp; promotional campaigns</li>
+            <li>Video/photo shoot concepts and scripts</li>
+            <li>Amazon &amp; Flipkart listing optimisation</li>
+            <li>SEO-friendly product copy &amp; cataloguing</li>
+            <li>Data analysis &amp; performance tracking</li>
+          </ul>
+          <div class="about-actions">
+            <a class="btn btn-primary" href="assets/Anurag_Kumar_Resume.pdf" download>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+              Download Resume
+            </a>
+            <a class="btn btn-outline" href="#services">Explore Services</a>
+          </div>
         </div>
       </div>
-    </section>
 
-    <section id="portfolio" class="section portfolio">
-      <div class="section-intro">
-        <p class="eyebrow">MY WORK</p>
-        <h2>Recent Projects</h2>
-        <p>Replace these sample projects with your real work, screenshots and client results.</p>
+      <!-- EXPERIENCE -->
+      <div class="section-head section-head-tight reveal">
+        <span class="eyebrow">Experience &amp; Education</span>
+        <h2 class="section-title">Where I've Worked</h2>
       </div>
-      <div class="projects">
-        <article class="project"><div class="project-img gradient-one">SOCIAL MEDIA</div><h3>Social Media Graphics</h3><p>Instagram · Facebook · LinkedIn</p></article>
-        <article class="project"><div class="project-img gradient-two">▶ YOUTUBE</div><h3>YouTube Thumbnails</h3><p>High-CTR thumbnail concepts</p></article>
-        <article class="project"><div class="project-img gradient-three">WEBSITE</div><h3>Website Content</h3><p>Landing pages · About pages</p></article>
-        <article class="project"><div class="project-img gradient-four">AK BRAND</div><h3>Brand Identity</h3><p>Minimal and modern design</p></article>
-      </div>
-    </section>
 
-    <section id="testimonials" class="section testimonials">
-      <div class="section-intro">
-        <p class="eyebrow">TESTIMONIALS</p>
-        <h2>What Clients Say</h2>
-      </div>
-      <div class="quotes">
-        <blockquote>“Professional communication and clean work. The process was simple and smooth.”<cite>— Sample Client</cite></blockquote>
-        <blockquote>“Good attention to detail and delivered on time. Would work together again.”<cite>— Sample Client</cite></blockquote>
-        <blockquote>“Helpful, responsive and easy to work with.”<cite>— Sample Client</cite></blockquote>
-      </div>
-    </section>
+      <div class="timeline">
+        <article class="tl-item reveal">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <span class="tl-date">Jan 2026 — Present</span>
+            <h3>Media Executive — Digital Marketing</h3>
+            <p class="tl-org">Netaji Subhas Medical College &amp; Hospital (NSMCH), Bihita</p>
+            <ul>
+              <li>Planned and executed monthly social media calendars, promotional campaigns and brand communications across digital channels.</li>
+              <li>Developed creative concepts and scripts for video and photography shoots.</li>
+              <li>Coordinated with print and electronic media for press releases and official coverage.</li>
+              <li>Created and managed 20+ monthly social media assets while maintaining brand consistency.</li>
+              <li>Partnered with internal media departments and external vendors to align digital and offline marketing.</li>
+            </ul>
+          </div>
+        </article>
 
-    <section id="contact" class="contact">
-      <div>
-        <p class="eyebrow">GET IN TOUCH</p>
-        <h2>Let's Work Together</h2>
-        <p>Have a project in mind? Send a message and tell me what you need.</p>
-        <div class="contact-info">
-          <p>✉️ your-email@example.com</p>
-          <p>📱 +91 XXXXX XXXXX</p>
-          <p>📍 India · Available Worldwide</p>
+        <article class="tl-item reveal">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <span class="tl-date">60-Day Internship</span>
+            <h3>Data Analyst Intern — E-commerce Operations</h3>
+            <p class="tl-org">Being Electro</p>
+            <ul>
+              <li>Managed cataloguing, product listings and SEO-friendly copy for 50+ products on Amazon and Flipkart.</li>
+              <li>Analyzed business, operational and customer performance datasets to support e-commerce growth.</li>
+              <li>Handled marketplace support tickets, customer inquiries and account health compliance.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="tl-item reveal">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <span class="tl-date">Additional</span>
+            <h3>Sales Experience</h3>
+            <p class="tl-org">Kia Showroom | Moya Motors — Tata Motors Dealer</p>
+            <ul>
+              <li>Customer interaction, product communication, lead handling and sales support.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="tl-item reveal">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <span class="tl-date">2026</span>
+            <h3>Bachelor of Business Management (B.B.M.)</h3>
+            <p class="tl-org">Patiputra University — 63.13%</p>
+          </div>
+        </article>
+
+        <article class="tl-item reveal">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <span class="tl-date">2023</span>
+            <h3>Higher Secondary (Intermediate) — PCB</h3>
+            <p class="tl-org">Bihar School Examination Board (BSEB) — 67.2%</p>
+          </div>
+        </article>
+
+        <article class="tl-item reveal">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <span class="tl-date">2021</span>
+            <h3>Secondary School (Matriculation)</h3>
+            <p class="tl-org">CBSE — 67%</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section section-muted" id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Services</span>
+        <h2 class="section-title">What I Can Do For You</h2>
+        <p class="section-sub">Practical, reliable support across digital marketing, e-commerce and data work.</p>
+      </div>
+      <div class="services-grid">
+        <article class="service-card reveal">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+          <h3>Digital Marketing</h3>
+          <p>Campaign planning, media planning, brand promotion and performance tracking across digital channels.</p>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.6l6.8-4M8.6 13.4l6.8 4"/></svg></div>
+          <h3>Social Media Management</h3>
+          <p>Monthly content calendars, post creation, community engagement and consistent brand presence.</p>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.4 11.5a2 2 0 0 0 2 1.5h7.7a2 2 0 0 0 2-1.6L21 7H6"/></svg></div>
+          <h3>E-commerce &amp; Product Listing</h3>
+          <p>Amazon and Flipkart listing support — titles, descriptions, attributes, cataloguing and account health.</p>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></div>
+          <h3>SEO &amp; Product Copy</h3>
+          <p>Keyword research, on-page SEO and SEO-friendly copy to help products and pages get found.</p>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div>
+          <h3>Content Creation</h3>
+          <p>Creative concepts, scripts, captions and multimedia content for social and promotional use.</p>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10M15 10v10"/></svg></div>
+          <h3>Microsoft Excel &amp; Data Management</h3>
+          <p>Organising, cleaning and structuring data in Excel — formatting sheets, maintaining records and preparing reports.</p>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></div>
+          <h3>Data Entry</h3>
+          <p>Accurate typing and data feeding into spreadsheets, databases and online forms with careful checking.</p>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 11h18"/></svg></div>
+          <h3>Record Management</h3>
+          <p>Keeping digital records organised, verified and easy to retrieve — nothing lost or duplicated.</p>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 8.2-7 9-4-.8-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3>Data Research &amp; Analysis</h3>
+          <p>Market research, dataset analysis and clear performance reports to support better decisions.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="section section-light" id="portfolio">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Portfolio</span>
+        <h2 class="section-title">Work Categories</h2>
+        <p class="section-sub">These are the areas I work in. Real samples and case studies will be added here as projects are completed — nothing below is presented as a finished client project yet.</p>
+      </div>
+      <div class="portfolio-grid">
+        <article class="portfolio-card reveal">
+          <div class="portfolio-thumb" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10M15 10v10"/></svg>
+            <span class="portfolio-badge">Sample layout</span>
+          </div>
+          <div class="portfolio-body">
+            <span class="portfolio-cat">Data &amp; Excel Work</span>
+            <h3>Spreadsheets &amp; Data Projects</h3>
+            <p>Reserved for Excel workbooks, data-entry samples and reporting sheets.</p>
+          </div>
+        </article>
+        <article class="portfolio-card reveal">
+          <div class="portfolio-thumb" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 11h18"/></svg>
+            <span class="portfolio-badge">Sample layout</span>
+          </div>
+          <div class="portfolio-body">
+            <span class="portfolio-cat">Documentation &amp; Records</span>
+            <h3>Documentation &amp; Record Management</h3>
+            <p>Reserved for documentation workflows, record-keeping systems and process examples.</p>
+          </div>
+        </article>
+        <article class="portfolio-card reveal">
+          <div class="portfolio-thumb" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.6l6.8-4M8.6 13.4l6.8 4"/></svg>
+            <span class="portfolio-badge">Sample layout</span>
+          </div>
+          <div class="portfolio-body">
+            <span class="portfolio-cat">Social Media Work</span>
+            <h3>Social Media Management</h3>
+            <p>Reserved for content calendars, post designs and page management samples.</p>
+          </div>
+        </article>
+        <article class="portfolio-card reveal">
+          <div class="portfolio-thumb" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.4 11.5a2 2 0 0 0 2 1.5h7.7a2 2 0 0 0 2-1.6L21 7H6"/></svg>
+            <span class="portfolio-badge">Sample layout</span>
+          </div>
+          <div class="portfolio-body">
+            <span class="portfolio-cat">E-commerce / Product Listing</span>
+            <h3>Product Listing Support</h3>
+            <p>Reserved for Amazon / Flipkart listing samples, catalogue sheets and product descriptions.</p>
+          </div>
+        </article>
+        <article class="portfolio-card reveal">
+          <div class="portfolio-thumb" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+            <span class="portfolio-badge">Sample layout</span>
+          </div>
+          <div class="portfolio-body">
+            <span class="portfolio-cat">Content Creation</span>
+            <h3>Content &amp; Copy Samples</h3>
+            <p>Reserved for written posts, captions, scripts and product descriptions.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section section-dark" id="skills">
+    <div class="container">
+      <div class="section-head section-head-dark reveal">
+        <span class="eyebrow eyebrow-dark">Skills</span>
+        <h2 class="section-title">Tools &amp; Capabilities</h2>
+        <p class="section-sub">The areas I work in day to day.</p>
+      </div>
+      <ul class="skills-grid">
+        <li class="skill-item reveal">Social Media Management</li>
+        <li class="skill-item reveal">Content Strategy</li>
+        <li class="skill-item reveal">SEO</li>
+        <li class="skill-item reveal">Campaign Management</li>
+        <li class="skill-item reveal">Brand Promotion</li>
+        <li class="skill-item reveal">Media Planning</li>
+        <li class="skill-item reveal">Product Listing Optimisation</li>
+        <li class="skill-item reveal">Cataloguing &amp; Account Health</li>
+        <li class="skill-item reveal">Marketplace Growth</li>
+        <li class="skill-item reveal">Data Analysis &amp; Market Research</li>
+        <li class="skill-item reveal">Performance Tracking</li>
+        <li class="skill-item reveal">Microsoft Excel</li>
+      </ul>
+      <div class="tools-row reveal">
+        <span>Amazon Seller Central</span><span>Flipkart Seller Hub</span><span>Microsoft Excel</span>
+        <span>Canva</span><span>Meta Business Suite</span><span>Google Analytics</span>
+        <span>Google Search Console</span><span>CapCut</span>
+      </div>
+      <p class="skills-note reveal">Languages: Hindi (Native/Fluent) · English (Professional Working)</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section section-muted" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Contact</span>
+        <h2 class="section-title">Let's Build Something Great</h2>
+        <p class="section-sub">Tell me what you need — I usually reply within a day.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <a class="contact-card" href="tel:+917061086068">
+            <span class="contact-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+            <span class="contact-meta"><small>Phone</small><strong>+91 7061086068</strong></span>
+          </a>
+          <a class="contact-card" href="mailto:anurag123kumar1234567@gmail.com">
+            <span class="contact-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 7l9 6 9-6"/></svg></span>
+            <span class="contact-meta"><small>Email</small><strong>anurag123kumar1234567@gmail.com</strong></span>
+          </a>
+          <div class="contact-card contact-card-static">
+            <span class="contact-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+            <span class="contact-meta"><small>Location</small><strong>Patna, Bihar, India</strong></span>
+          </div>
+          <div class="contact-buttons">
+            <a class="btn btn-wa" href="https://wa.me/917061086068?text=Hi%20Anurag%2C%20I%20found%20your%20website%20and%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2v-.5l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c2.1.8 2.1.6 2.5.5a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.2-.3-.2-.5-.3z"/></svg>
+              Chat on WhatsApp
+            </a>
+            <a class="btn btn-outline" href="mailto:anurag123kumar1234567@gmail.com?subject=Project%20Enquiry%20%E2%80%94%20Anurag%20Digital%20Services">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 7l9 6 9-6"/></svg>
+              Send Email
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap reveal">
+          <form id="contactForm" class="contact-form" novalidate>
+            <div class="field"><label for="cf-name">Your Name</label><input type="text" id="cf-name" name="name" placeholder="Enter your full name" autocomplete="name" required></div>
+            <div class="field"><label for="cf-email">Your Email</label><input type="email" id="cf-email" name="email" placeholder="you@example.com" autocomplete="email" required></div>
+            <div class="field">
+              <label for="cf-service">Service Needed</label>
+              <select id="cf-service" name="service">
+                <option value="">Select a service (optional)</option>
+                <option>Digital Marketing</option>
+                <option>Social Media Management</option>
+                <option>E-commerce / Product Listing</option>
+                <option>SEO &amp; Product Copy</option>
+                <option>Content Creation</option>
+                <option>Microsoft Excel &amp; Data Management</option>
+                <option>Data Entry</option>
+                <option>Record Management</option>
+                <option>Data Research &amp; Analysis</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="field"><label for="cf-message">Message</label><textarea id="cf-message" name="message" rows="5" placeholder="Briefly describe what you need help with..." required></textarea></div>
+            <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+            <p class="form-note">This form opens your email app with the details filled in — nothing is stored on this website.</p>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
         </div>
       </div>
-      <form id="contactForm">
-        <div class="form-row">
-          <input required name="name" placeholder="Your Name">
-          <input required type="email" name="email" placeholder="Your Email">
-        </div>
-        <textarea required name="message" rows="5" placeholder="Tell me about your project"></textarea>
-        <button class="btn" type="submit">Send Message →</button>
-        <p class="form-note">Demo form: connect it to Formspree, EmailJS, or your own backend before publishing.</p>
-      </form>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <footer class="footer">
-    <div><strong>AK Digital Services</strong><small>Freelance Digital Services</small></div>
-    <p>© <span id="year"></span> AK Digital Services. All rights reserved.</p>
-  </footer>
+</main>
 
-  <script src="script.js"></script>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="#home" aria-label="Anurag Digital Services — Home">
+        <img src="assets/logo.svg" alt="" class="brand-mark" width="44" height="44" loading="lazy">
+        <span class="brand-text"><strong>ANURAG</strong><span>DIGITAL SERVICES</span></span>
+      </a>
+      <p class="footer-tagline">Let's Build Something Great</p>
+      <p class="footer-desc">Professional Digital &amp; Documentation Services — based in Patna, Bihar, India.</p>
+    </div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="footer-contact">
+      <h3>Get in Touch</h3>
+      <ul>
+        <li><a href="tel:+917061086068">+91 7061086068</a></li>
+        <li><a href="mailto:anurag123kumar1234567@gmail.com">anurag123kumar1234567@gmail.com</a></li>
+        <li>Patna, Bihar, India</li>
+      </ul>
+      <div class="social-row">
+        <a class="social-link" href="https://www.linkedin.com/in/anurak-kumar-x" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.5 4.7 5.9V21h-4v-5.6c0-1.3 0-3.1-1.9-3.1s-2.2 1.5-2.2 3V21h-4z"/></svg>
+        </a>
+        <a class="social-link is-placeholder" href="#" aria-label="YouTube (link coming soon)" title="Coming soon">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M23 12s0-3.5-.4-5.2a2.7 2.7 0 0 0-1.9-1.9C19 4.5 12 4.5 12 4.5s-7 0-8.7.4a2.7 2.7 0 0 0-1.9 1.9C1 8.5 1 12 1 12s0 3.5.4 5.2a2.7 2.7 0 0 0 1.9 1.9c1.7.4 8.7.4 8.7.4s7 0 8.7-.4a2.7 2.7 0 0 0 1.9-1.9C23 15.5 23 12 23 12zM9.8 15.3V8.7l6 3.3z"/></svg>
+        </a>
+        <a class="social-link is-placeholder" href="#" aria-label="Instagram (link coming soon)" title="Coming soon">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a class="social-link is-placeholder" href="#" aria-label="Freelancer profile (link coming soon)" title="Coming soon">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.6 20 12 16.7 6.4 20l1.4-6.7L3 9l6.4-.7z"/></svg>
+        </a>
+      </div>
+      <p class="social-note">LinkedIn is live. Other social links coming soon.</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>&copy; <span id="year">2026</span> Anurag Digital Services. All rights reserved.</p>
+    <p>Professional Digital &amp; Documentation Services</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
-</html>
+                                                                                                                                                                                                         </html>
