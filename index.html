@@ -606,19 +606,228 @@
         <stop offset="0%" stop-color="#e0fbff"/><stop offset="45%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0891b2"/>
       </radialGradient>
     </defs>
-    <circle cx="50" cy="50" r="46" fill="#0a1428" stroke="#22d3ee" stroke-width="2.5"/>
-    <ellipse cx="50" cy="56" rx="34" ry="36" fill="#fbd5b0"/>
-    <path d="M 14 46 Q 12 12 50 10 Q 88 12 86 46 L 88 60 Q 82 32 60 24 Q 50 20 40 24 Q 18 32 12 60 Z" fill="#252e45"/>
-    <path d="M 20 44 L 36 30 L 44 48 L 50 26 L 56 48 L 64 30 L 80 44 Q 62 32 50 32 Q 38 32 20 44 Z" fill="#1a2338"/>
-    <ellipse cx="38" cy="58" rx="6" ry="7" fill="#fff"/>
-    <ellipse cx="62" cy="58" rx="6" ry="7" fill="#fff"/>
-    <ellipse cx="38" cy="59" rx="4.5" ry="5.5" fill="url(#curEye)"/>
-    <ellipse cx="62" cy="59" rx="4.5" ry="5.5" fill="url(#curEye)"/>
-    <ellipse cx="38" cy="60" rx="2.4" ry="3.2" fill="#0a1428"/>
-    <ellipse cx="62" cy="60" rx="2.4" ry="3.2" fill="#0a1428"/>
+<!-- Anime companion on rope + anime cursor -->
+<div class="rope-line" id="ropeLine" aria-hidden="true">
+  <svg viewBox="0 0 20 800" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="ropeGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#1e3a8a"/>
+        <stop offset="50%" stop-color="#22d3ee"/>
+        <stop offset="100%" stop-color="#1e3a8a"/>
+      </linearGradient>
+    </defs>
+    <line x1="10" y1="0" x2="10" y2="800" stroke="url(#ropeGrad)" stroke-width="3"/>
+    <line x1="10" y1="0" x2="10" y2="800" stroke="rgba(34,211,238,0.5)" stroke-width="6" opacity="0.35"/>
+  </svg>
+</div>
+
+<div class="rope-anchor" id="ropeAnchor" aria-hidden="true"></div>
+
+<div class="scroll-companion" id="scrollCompanion" aria-hidden="true">
+  <svg class="companion-svg" viewBox="0 0 220 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cHair" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="55%" stop-color="#d8dde6"/>
+        <stop offset="100%" stop-color="#a8b2c0"/>
+      </linearGradient>
+      <linearGradient id="cJacket" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="100%" stop-color="#e2e8f0"/>
+      </linearGradient>
+      <linearGradient id="cShirt" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1f2937"/>
+        <stop offset="100%" stop-color="#0f172a"/>
+      </linearGradient>
+      <linearGradient id="cPants" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1e293b"/>
+        <stop offset="100%" stop-color="#0a0f1c"/>
+      </linearGradient>
+      <linearGradient id="cShoe" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#e2e8f0"/>
+        <stop offset="100%" stop-color="#94a3b8"/>
+      </linearGradient>
+      <radialGradient id="cSkin" cx="0.4" cy="0.35">
+        <stop offset="0%" stop-color="#ffdbb8"/>
+        <stop offset="100%" stop-color="#f0b98a"/>
+      </radialGradient>
+      <radialGradient id="cEye" cx="0.35" cy="0.3">
+        <stop offset="0%" stop-color="#8b5a3c"/>
+        <stop offset="60%" stop-color="#3d1f10"/>
+        <stop offset="100%" stop-color="#1a0a04"/>
+      </radialGradient>
+      <radialGradient id="cGlow" cx="0.5" cy="0.5">
+        <stop offset="0%" stop-color="rgba(34,211,238,0.4)"/>
+        <stop offset="100%" stop-color="rgba(34,211,238,0)"/>
+      </radialGradient>
+    </defs>
+
+    <!-- aura glow -->
+    <ellipse cx="110" cy="200" rx="95" ry="150" fill="url(#cGlow)"/>
+
+    <!-- ==== ROPE GRIP HANDS (arms up, holding rope) ==== -->
+    <g class="c-grip">
+      <path d="M 128 175 Q 152 160 172 140" stroke="url(#cJacket)" stroke-width="17" stroke-linecap="round" fill="none"/>
+      <path d="M 128 175 Q 152 160 172 140" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.4"/>
+      <circle cx="176" cy="136" r="11" fill="url(#cSkin)"/>
+      <path d="M 168 128 Q 176 120 186 126" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
+      <path d="M 168 136 Q 176 132 186 138" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
+
+      <path d="M 92 175 Q 68 160 48 140" stroke="url(#cJacket)" stroke-width="17" stroke-linecap="round" fill="none"/>
+      <path d="M 92 175 Q 68 160 48 140" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.4"/>
+      <circle cx="44" cy="136" r="11" fill="url(#cSkin)"/>
+      <path d="M 36 128 Q 44 120 54 126" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
+      <path d="M 36 136 Q 44 132 54 138" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
+    </g>
+
+    <!-- ==== LEGS / PANTS ==== -->
+    <g class="c-legs">
+      <!-- Left leg -->
+      <path d="M 78 300 L 72 380 L 88 380 L 96 300 Z" fill="url(#cPants)"/>
+      <!-- Right leg -->
+      <path d="M 124 300 L 132 380 L 148 380 L 142 300 Z" fill="url(#cPants)"/>
+      <!-- Knee shine -->
+      <path d="M 82 330 L 92 330" stroke="#475569" stroke-width="2" opacity="0.5"/>
+      <path d="M 128 330 L 138 330" stroke="#475569" stroke-width="2" opacity="0.5"/>
+    </g>
+
+    <!-- ==== SNEAKERS ==== -->
+    <g class="c-shoes">
+      <!-- Left shoe -->
+      <path d="M 68 378 Q 60 388 66 396 L 100 396 Q 104 388 94 380 Z" fill="url(#cShoe)" stroke="#64748b" stroke-width="1.5"/>
+      <path d="M 66 396 L 100 396" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M 74 388 L 88 388" stroke="#dc2626" stroke-width="1.5" opacity="0.7"/>
+      <!-- Right shoe -->
+      <path d="M 128 380 Q 122 388 128 396 L 162 396 Q 166 388 156 378 Z" fill="url(#cShoe)" stroke="#64748b" stroke-width="1.5"/>
+      <path d="M 128 396 L 162 396" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M 136 388 L 150 388" stroke="#dc2626" stroke-width="1.5" opacity="0.7"/>
+    </g>
+
+    <!-- ==== JACKET BODY ==== -->
+    <g class="c-body">
+      <!-- Inner shirt -->
+      <path d="M 88 180 L 132 180 L 138 300 L 82 300 Z" fill="url(#cShirt)"/>
+      <!-- White lines on shirt -->
+      <path d="M 100 200 L 100 290" stroke="#cbd5e1" stroke-width="1.5" opacity="0.6"/>
+      <path d="M 120 200 L 120 290" stroke="#cbd5e1" stroke-width="1.5" opacity="0.6"/>
+
+      <!-- Jacket left panel -->
+      <path d="M 82 180 Q 60 190 58 250 L 68 300 L 88 300 L 82 180 Z" fill="url(#cJacket)" stroke="#94a3b8" stroke-width="1.2"/>
+      <!-- Jacket right panel -->
+      <path d="M 138 180 Q 160 190 162 250 L 152 300 L 132 300 L 138 180 Z" fill="url(#cJacket)" stroke="#94a3b8" stroke-width="1.2"/>
+      <!-- Collar -->
+      <path d="M 82 180 L 100 210 L 88 185 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+      <path d="M 138 180 L 120 210 L 132 185 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+      <!-- Small patch on right chest -->
+      <rect x="145" y="225" width="9" height="9" rx="1.5" fill="#0f172a" opacity="0.8"/>
+    </g>
+
+    <!-- ==== HEAD ==== -->
+    <g class="c-head">
+      <!-- Face -->
+      <ellipse cx="110" cy="120" rx="52" ry="58" fill="url(#cSkin)"/>
+
+      <!-- Ears -->
+      <ellipse cx="58" cy="128" rx="7" ry="12" fill="#f0b98a"/>
+      <ellipse cx="162" cy="128" rx="7" ry="12" fill="#f0b98a"/>
+
+      <!-- Red earring left (from reference) -->
+      <path d="M 56 138 L 52 148 L 60 148 Z" fill="#dc2626"/>
+
+      <!-- ==== SPIKY SILVER HAIR ==== -->
+      <g class="c-hair">
+        <!-- back row -->
+        <path d="M 58 100 L 68 60 L 82 92 L 92 52 L 106 88 L 116 46 L 130 88 L 142 54 L 152 92 L 162 62 L 164 108 Q 155 90 140 92 Q 120 96 110 90 Q 96 96 78 92 Q 62 92 58 100 Z" fill="url(#cHair)" stroke="#94a3b8" stroke-width="1"/>
+        <!-- front spikes overlay -->
+        <path d="M 68 92 L 78 52 L 88 88" fill="#f8fafc" stroke="#a8b2c0" stroke-width="0.8"/>
+        <path d="M 96 88 L 106 44 L 116 86" fill="#f8fafc" stroke="#a8b2c0" stroke-width="0.8"/>
+        <path d="M 126 86 L 138 52 L 148 90" fill="#f8fafc" stroke="#a8b2c0" stroke-width="0.8"/>
+        <!-- hairline shadow -->
+        <path d="M 62 108 Q 90 96 110 100 Q 130 96 158 108" stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.5"/>
+      </g>
+
+      <!-- ==== ROUND GLASSES ==== -->
+      <g class="c-glasses">
+        <circle cx="86" cy="132" r="19" fill="none" stroke="#0f172a" stroke-width="2.6"/>
+        <circle cx="134" cy="132" r="19" fill="none" stroke="#0f172a" stroke-width="2.6"/>
+        <line x1="105" y1="132" x2="115" y2="132" stroke="#0f172a" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="67" y1="128" x2="60" y2="124" stroke="#0f172a" stroke-width="2.4" stroke-linecap="round"/>
+        <line x1="153" y1="128" x2="160" y2="124" stroke="#0f172a" stroke-width="2.4" stroke-linecap="round"/>
+        <!-- lens shine -->
+        <path d="M 74 122 Q 82 116 92 118" stroke="#fff" stroke-width="2" fill="none" opacity="0.7" stroke-linecap="round"/>
+        <path d="M 122 122 Q 130 116 140 118" stroke="#fff" stroke-width="2" fill="none" opacity="0.7" stroke-linecap="round"/>
+      </g>
+
+      <!-- ==== EYES (big anime) ==== -->
+      <g class="c-eye-l">
+        <ellipse cx="86" cy="134" rx="11" ry="13" fill="#fff"/>
+        <ellipse cx="86" cy="135" rx="9" ry="11" fill="url(#cEye)"/>
+        <ellipse cx="86" cy="137" rx="4.5" ry="5.5" fill="#1a0a04"/>
+        <circle cx="83" cy="130" r="3.2" fill="#fff"/>
+        <circle cx="89" cy="139" r="1.5" fill="#fff" opacity="0.8"/>
+      </g>
+      <g class="c-eye-r">
+        <ellipse cx="134" cy="134" rx="11" ry="13" fill="#fff"/>
+        <ellipse cx="134" cy="135" rx="9" ry="11" fill="url(#cEye)"/>
+        <ellipse cx="134" cy="137" rx="4.5" ry="5.5" fill="#1a0a04"/>
+        <circle cx="131" cy="130" r="3.2" fill="#fff"/>
+        <circle cx="137" cy="139" r="1.5" fill="#fff" opacity="0.8"/>
+      </g>
+
+      <!-- Confident eyebrows (angled, from reference) -->
+      <path d="M 74 116 L 96 120" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 146 116 L 124 120" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- Nose -->
+      <path d="M 108 148 L 112 148 L 110 152 Z" fill="#d99a6c"/>
+
+      <!-- Confident smirk -->
+      <path d="M 100 166 Q 110 172 122 164" stroke="#3d1f10" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+
+      <!-- Cheek blush -->
+      <ellipse cx="70" cy="150" rx="8" ry="4" fill="#f4a5a5" opacity="0.5"/>
+      <ellipse cx="150" cy="150" rx="8" ry="4" fill="#f4a5a5" opacity="0.5"/>
+    </g>
+
+    <!-- Floating sparks -->
+    <circle class="c-spark s1" cx="34" cy="180" r="3" fill="#22d3ee"/>
+    <circle class="c-spark s2" cx="186" cy="220" r="2.5" fill="#60a5fa"/>
+    <circle class="c-spark s3" cx="180" cy="80" r="2.5" fill="#22d3ee"/>
+    <circle class="c-spark s4" cx="40" cy="260" r="2" fill="#60a5fa"/>
+  </svg>
+</div>
+
+<div class="cursor-character" id="cursorCharacter" aria-hidden="true">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="curHair" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#a8b2c0"/>
+      </linearGradient>
+      <radialGradient id="curEye" cx="0.35" cy="0.3">
+        <stop offset="0%" stop-color="#8b5a3c"/><stop offset="60%" stop-color="#3d1f10"/><stop offset="100%" stop-color="#1a0a04"/>
+      </radialGradient>
+    </defs>
+    <!-- Face -->
+    <ellipse cx="50" cy="56" rx="34" ry="38" fill="#ffdbb8"/>
+    <!-- Spiky hair -->
+    <path d="M 14 46 L 22 14 L 32 40 L 40 8 L 50 36 L 58 6 L 68 38 L 78 12 L 86 46 Q 70 30 50 30 Q 30 30 14 46 Z" fill="url(#curHair)" stroke="#94a3b8" stroke-width="0.8"/>
+    <!-- Glasses -->
+    <circle cx="38" cy="58" r="12" fill="none" stroke="#0f172a" stroke-width="1.8"/>
+    <circle cx="62" cy="58" r="12" fill="none" stroke="#0f172a" stroke-width="1.8"/>
+    <line x1="50" y1="58" x2="50" y2="58" stroke="#0f172a" stroke-width="1.8"/>
+    <line x1="26" y1="56" x2="20" y2="53" stroke="#0f172a" stroke-width="1.6"/>
+    <line x1="74" y1="56" x2="80" y2="53" stroke="#0f172a" stroke-width="1.6"/>
+    <!-- Eyes -->
+    <ellipse cx="38" cy="58" rx="6.5" ry="7.5" fill="#fff"/>
+    <ellipse cx="62" cy="58" rx="6.5" ry="7.5" fill="#fff"/>
+    <ellipse cx="38" cy="59" rx="5" ry="6" fill="url(#curEye)"/>
+    <ellipse cx="62" cy="59" rx="5" ry="6" fill="url(#curEye)"/>
+    <ellipse cx="38" cy="60" rx="2.4" ry="3" fill="#1a0a04"/>
+    <ellipse cx="62" cy="60" rx="2.4" ry="3" fill="#1a0a04"/>
     <circle cx="36.5" cy="56" r="1.6" fill="#fff"/>
     <circle cx="60.5" cy="56" r="1.6" fill="#fff"/>
-    <path d="M 42 76 Q 50 82 58 76" stroke="#0f1525" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <!-- Smirk -->
+    <path d="M 42 76 Q 50 82 60 74" stroke="#3d1f10" stroke-width="2" fill="none" stroke-linecap="round"/>
   </svg>
 </div>
 <script src="script.js"></script>
