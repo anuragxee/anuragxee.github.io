@@ -493,3 +493,80 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   .reveal{opacity:1;filter:none;transform:none;transition:none}
   .service-card,.portfolio-card{transition:none !important}
 }
+/* ============================================================
+   FLOATING 3D SCROLL COMPANION
+   ============================================================ */
+
+.scroll-companion {
+  position: fixed;
+  right: 24px;
+  top: 0;
+  width: 180px;
+  height: 260px;
+  z-index: 90;
+  pointer-events: none;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  opacity: 0;
+  transition: opacity .6s ease;
+  filter: drop-shadow(0 20px 40px rgba(34, 211, 238, 0.35));
+}
+
+.scroll-companion.visible {
+  opacity: 1;
+}
+
+.scroll-companion iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  display: block;
+}
+
+/* Subtle glow behind the companion */
+.scroll-companion::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.18), transparent 70%);
+  filter: blur(20px);
+  z-index: -1;
+  animation: companionGlow 3s ease-in-out infinite;
+}
+
+@keyframes companionGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.08); }
+}
+
+/* Responsive sizes */
+@media (max-width: 820px) {
+  .scroll-companion {
+    width: 130px;
+    height: 190px;
+    right: 12px;
+  }
+}
+@media (max-width: 480px) {
+  .scroll-companion {
+    width: 110px;
+    height: 160px;
+    right: 6px;
+  }
+}
+
+/* Hide on very small screens to keep things clean */
+@media (max-width: 400px) {
+  .scroll-companion {
+    display: none;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-companion {
+    display: none;
+  }
+}
