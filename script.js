@@ -295,3 +295,52 @@
 
   requestAnimationFrame(tick);
 })();
+/* ============================================================
+   FLOATING BOT COMPANION
+   Moves up/down with scroll using smooth lerp
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var bot = document.getElementById('botCompanion');
+  if (!bot) return;
+
+  // Skip if user prefers reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var targetY = 0;
+  var currentY = 0;
+
+  function computeTarget() {
+    var doc = document.documentElement;
+    var maxScroll = doc.scrollHeight - window.innerHeight;
+    var progress = maxScroll > 0 ? (window.scrollY / maxScroll) : 0;
+
+    // Bot travels from top 20% to bottom 72% of viewport
+    var startY = window.innerHeight * 0.20;
+    var endY   = window.innerHeight * 0.72;
+    targetY = startY + progress * (endY - startY);
+
+    // Fade in only after user scrolls past the hero
+    if (window.scrollY > 100) {
+      bot.classList.add('visible');
+    } else {
+      bot.classList.remove('visible');
+    }
+  }
+
+  function tick() {
+    // Smooth lerp toward target
+    currentY += (targetY - currentY) * 0.10;
+    bot.style.transform = 'translate3d(0, ' + currentY.toFixed(2) + 'px, 0)';
+    requestAnimationFrame(tick);
+  }
+
+  computeTarget();
+  currentY = targetY;
+
+  window.addEventListener('scroll', computeTarget, { passive: true });
+  window.addEventListener('resize', computeTarget, { passive: true });
+
+  requestAnimationFrame(tick);
+})();
