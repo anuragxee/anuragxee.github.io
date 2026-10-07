@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Anurag Digital Services AN logo">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1428"/>
+      <stop offset="100%" stop-color="#050a16"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="55%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="120" height="120" rx="28" fill="url(#bg)"/>
+  <rect x="0.75" y="0.75" width="118.5" height="118.5" rx="27.25" fill="none" stroke="rgba(34,211,238,0.22)" stroke-width="1.5"/>
+
+  <g filter="url(#glow)" fill="none" stroke="url(#accent)" stroke-width="8.5"
+     stroke-linecap="round" stroke-linejoin="round">
+    <!-- A -->
+    <path d="M24 82 L40 30 L56 82"/>
+    <path d="M31 62 H49"/>
+    <!-- N -->
+    <path d="M68 82 V30 L94 82 V30"/>
+  </g>
+
+  <circle cx="98" cy="22" r="3.4" fill="#22d3ee" opacity="0.9"/>
+</svg>
