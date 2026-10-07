@@ -115,3 +115,53 @@
     });
   }
 })();
+/* ============ 3D TILT + PARALLAX ============ */
+(function () {
+  'use strict';
+
+  // Only enable 3D hover effects on devices with a real pointer (desktop/laptop)
+  var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  function addTilt(selector, maxTilt) {
+    if (!canHover) return;
+    var cards = document.querySelectorAll(selector);
+    cards.forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var cx = rect.width  / 2;
+        var cy = rect.height / 2;
+        var rx = ((y - cy) / cy) * -maxTilt;
+        var ry = ((x - cx) / cx) *  maxTilt;
+        card.style.transform =
+          'perspective(1000px) rotateX(' + rx.toFixed(2) + 'deg) ' +
+          'rotateY(' + ry.toFixed(2) + 'deg) translateZ(10px)';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  addTilt('.service-card',   7);
+  addTilt('.portfolio-card', 7);
+
+  // Hero card parallax — moves gently with the cursor
+  var hero     = document.querySelector('.hero');
+  var heroCard = document.querySelector('.hero-card');
+  if (canHover && hero && heroCard) {
+    hero.addEventListener('mousemove', function (e) {
+      var rect = hero.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width  - 0.5;
+      var y = (e.clientY - rect.top)  / rect.height - 0.5;
+      heroCard.style.transform =
+        'perspective(1200px) ' +
+        'rotateY(' + (x * 8).toFixed(2) + 'deg) ' +
+        'rotateX(' + (-y * 8).toFixed(2) + 'deg)';
+    });
+    hero.addEventListener('mouseleave', function () {
+      heroCard.style.transform = '';
+    });
+  }
+})();
