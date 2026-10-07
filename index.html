@@ -520,6 +520,107 @@
   </div>
 </footer>
 
+  <!-- Animated companions -->
+<div class="scroll-companion" id="scrollCompanion" aria-hidden="true">
+  <svg class="companion-svg" viewBox="0 0 200 340" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cJacket" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1e3a8a"/><stop offset="100%" stop-color="#0a1428"/>
+      </linearGradient>
+      <linearGradient id="cHair" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#252e45"/><stop offset="100%" stop-color="#0f1525"/>
+      </linearGradient>
+      <radialGradient id="cEye" cx="0.35" cy="0.35">
+        <stop offset="0%" stop-color="#e0fbff"/><stop offset="45%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0891b2"/>
+      </radialGradient>
+      <radialGradient id="cGlow" cx="0.5" cy="0.55">
+        <stop offset="0%" stop-color="rgba(34,211,238,0.35)"/>
+        <stop offset="100%" stop-color="rgba(34,211,238,0)"/>
+      </radialGradient>
+    </defs>
+
+    <ellipse cx="100" cy="320" rx="62" ry="10" fill="url(#cGlow)"/>
+
+    <g class="c-body">
+      <path d="M 42 340 Q 32 250 58 200 L 142 200 Q 168 250 158 340 Z" fill="url(#cJacket)" stroke="#22d3ee" stroke-width="1.5"/>
+      <path d="M 76 200 L 100 232 L 124 200" fill="none" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round"/>
+      <rect x="88" y="230" width="24" height="6" rx="3" fill="#22d3ee" opacity="0.85"/>
+      <circle cx="100" cy="258" r="8" fill="#06121f" stroke="#22d3ee" stroke-width="1.5"/>
+      <circle cx="100" cy="258" r="3" fill="#22d3ee"/>
+    </g>
+
+    <rect x="88" y="168" width="24" height="36" rx="10" fill="#fbd0a8"/>
+
+    <g class="c-head">
+      <ellipse cx="100" cy="118" rx="58" ry="64" fill="#fbd5b0"/>
+
+      <path d="M 40 108 Q 36 42 100 36 Q 164 42 160 108 L 162 138 Q 156 96 132 78 Q 108 64 100 64 Q 92 64 68 78 Q 44 96 38 138 Z" fill="url(#cHair)"/>
+      <path d="M 44 98 L 72 72 L 84 106 L 100 66 L 116 106 L 128 72 L 156 98 Q 130 76 100 74 Q 70 76 44 98 Z" fill="#1a2338"/>
+      <path d="M 62 68 Q 84 56 106 62 Q 124 68 136 82" stroke="#22d3ee" stroke-width="3.2" fill="none" stroke-linecap="round" opacity="0.9"/>
+      <path d="M 46 96 Q 60 84 78 84" stroke="#22d3ee" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.55"/>
+
+      <path d="M 68 106 L 90 104" stroke="#0f1525" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 110 104 L 132 106" stroke="#0f1525" stroke-width="3" stroke-linecap="round"/>
+
+      <g class="c-eye-l">
+        <ellipse cx="78" cy="126" rx="13" ry="15" fill="#fff"/>
+        <ellipse cx="78" cy="128" rx="10" ry="12" fill="url(#cEye)"/>
+        <ellipse cx="78" cy="130" rx="5" ry="7" fill="#0a1428"/>
+        <circle cx="74" cy="122" r="3.5" fill="#fff"/>
+        <circle cx="82" cy="134" r="1.6" fill="#fff" opacity="0.85"/>
+      </g>
+      <g class="c-eye-r">
+        <ellipse cx="122" cy="126" rx="13" ry="15" fill="#fff"/>
+        <ellipse cx="122" cy="128" rx="10" ry="12" fill="url(#cEye)"/>
+        <ellipse cx="122" cy="130" rx="5" ry="7" fill="#0a1428"/>
+        <circle cx="118" cy="122" r="3.5" fill="#fff"/>
+        <circle cx="126" cy="134" r="1.6" fill="#fff" opacity="0.85"/>
+      </g>
+
+      <ellipse cx="62" cy="146" rx="8" ry="4" fill="#ffb0b0" opacity="0.5"/>
+      <ellipse cx="138" cy="146" rx="8" ry="4" fill="#ffb0b0" opacity="0.5"/>
+
+      <path d="M 90 156 Q 100 164 110 156" stroke="#0f1525" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <g class="c-arm c-arm-left">
+      <path d="M 46 220 Q 26 250 30 288" stroke="#1e3a8a" stroke-width="17" stroke-linecap="round" fill="none"/>
+      <circle cx="30" cy="292" r="10" fill="#fbd0a8"/>
+    </g>
+    <g class="c-arm c-arm-right">
+      <path d="M 154 220 Q 176 250 172 288" stroke="#1e3a8a" stroke-width="17" stroke-linecap="round" fill="none"/>
+      <circle cx="172" cy="292" r="10" fill="#fbd0a8"/>
+    </g>
+
+    <circle class="c-spark s1" cx="30" cy="150" r="3" fill="#22d3ee"/>
+    <circle class="c-spark s2" cx="170" cy="180" r="2.5" fill="#60a5fa"/>
+    <circle class="c-spark s3" cx="170" cy="90" r="2" fill="#22d3ee"/>
+    <circle class="c-spark s4" cx="20" cy="220" r="2.5" fill="#60a5fa"/>
+  </svg>
+</div>
+
+<div class="cursor-character" id="cursorCharacter" aria-hidden="true">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="curEye" cx="0.35" cy="0.35">
+        <stop offset="0%" stop-color="#e0fbff"/><stop offset="45%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0891b2"/>
+      </radialGradient>
+    </defs>
+    <circle cx="50" cy="50" r="46" fill="#0a1428" stroke="#22d3ee" stroke-width="2.5"/>
+    <ellipse cx="50" cy="56" rx="34" ry="36" fill="#fbd5b0"/>
+    <path d="M 14 46 Q 12 12 50 10 Q 88 12 86 46 L 88 60 Q 82 32 60 24 Q 50 20 40 24 Q 18 32 12 60 Z" fill="#252e45"/>
+    <path d="M 20 44 L 36 30 L 44 48 L 50 26 L 56 48 L 64 30 L 80 44 Q 62 32 50 32 Q 38 32 20 44 Z" fill="#1a2338"/>
+    <ellipse cx="38" cy="58" rx="6" ry="7" fill="#fff"/>
+    <ellipse cx="62" cy="58" rx="6" ry="7" fill="#fff"/>
+    <ellipse cx="38" cy="59" rx="4.5" ry="5.5" fill="url(#curEye)"/>
+    <ellipse cx="62" cy="59" rx="4.5" ry="5.5" fill="url(#curEye)"/>
+    <ellipse cx="38" cy="60" rx="2.4" ry="3.2" fill="#0a1428"/>
+    <ellipse cx="62" cy="60" rx="2.4" ry="3.2" fill="#0a1428"/>
+    <circle cx="36.5" cy="56" r="1.6" fill="#fff"/>
+    <circle cx="60.5" cy="56" r="1.6" fill="#fff"/>
+    <path d="M 42 76 Q 50 82 58 76" stroke="#0f1525" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  </svg>
+</div>
 <script src="script.js"></script>
 </body>
   </html>
