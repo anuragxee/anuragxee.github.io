@@ -248,7 +248,7 @@
 })();
 
 /* ============================================================
-   FLOATING BOT COMPANION (single instance)
+   FLOATING BOT COMPANION
    Moves up/down with scroll using smooth lerp
    ============================================================ */
 (function () {
@@ -294,9 +294,7 @@
 })();
 
 /* ============================================================
-   SOUND EFFECTS — Click tick + Greeting (voice)
-   Web Audio API for clicks (reliable everywhere)
-   SpeechSynthesis for greeting (called ONLY inside user tap handler)
+   SOUND EFFECTS — Click tick + MP3 greeting
    ============================================================ */
 (function () {
   'use strict';
@@ -304,6 +302,7 @@
   var audioCtx = null;
   var soundEnabled = true;
   var greetingPlayed = false;
+  var greetingAudio = null;
 
   try {
     if (localStorage.getItem('ads_sound_muted') === '1') soundEnabled = false;
@@ -353,58 +352,37 @@
     osc.stop(now + 0.06);
   }
 
-  /* ---------- GREETING voice ----------
-     MUST be called directly inside a click/tap handler.
-     No setTimeout, no async — that's how mobile browsers allow it. */
-  function speakGreetingNow() {
+  /* ---------- GREETING — plays assets/greeting.mp3 ---------- */
+  function playGreeting() {
     if (!soundEnabled || greetingPlayed) return;
-    if (!('speechSynthesis' in window)) return;
     greetingPlayed = true;
 
     try {
-      window.speechSynthesis.cancel(); // clear queued
-      var utter = new SpeechSynthesisUtterance('Hey, welcome to Anurag Digital Services.');
-      utter.rate = 1.0;
-      utter.pitch = 1.05;
-      utter.volume = 0.9;
-      utter.lang = 'en-IN';
-
-      // Prefer Indian English voice if available
-      var voices = window.speechSynthesis.getVoices();
-      var preferred = voices.find(function (v) {
-        return /en[-_]IN|India/i.test(v.lang + ' ' + v.name);
-      });
-      if (preferred) utter.voice = preferred;
-
-      window.speechSynthesis.speak(utter);
+      if (!greetingAudio) {
+        greetingAudio = new Audio('assets/greeting.mp3');
+        greetingAudio.preload = 'auto';
+        greetingAudio.volume = 0.9;
+      }
+      greetingAudio.currentTime = 0;
+      var p = greetingAudio.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function () { /* blocked or file missing — ignore */ });
+      }
     } catch (e) { /* silent */ }
   }
 
-  /* Preload voice list (some browsers load async) */
-  if ('speechSynthesis' in window) {
-    window.speechSynthesis.onvoiceschanged = function () {
-      window.speechSynthesis.getVoices();
-    };
-    window.speechSynthesis.getVoices();
-  }
-
-  /* ---------- CLICK handler — plays tick + fires greeting once ---------- */
+  /* ---------- CLICK handler — fires greeting once + plays tick ---------- */
   var clickTargets = 'a, button, .btn, .service-card, .portfolio-card, .skill-item, .contact-card, input, select, textarea, .nav-link';
 
   document.addEventListener('click', function (e) {
-    // Skip click sound when user clicks the sound toggle
     if (e.target.closest('.sound-toggle')) return;
-
-    // Fire the greeting on the very first user click, DIRECTLY in handler
-    speakGreetingNow();
-
-    // Play the tick if they clicked an interactive element
+    playGreeting();
     if (e.target.closest(clickTargets)) playClick();
   }, true);
 
-  /* Also fire greeting on first touchstart (mobile) */
+  /* Also fire greeting on first touch (mobile) */
   document.addEventListener('touchstart', function () {
-    speakGreetingNow();
+    playGreeting();
   }, { passive: true, once: true });
 
   /* Hover sound (desktop only) */
@@ -428,8 +406,8 @@
 
       if (soundEnabled) {
         setTimeout(playClick, 60);
-      } else if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
+      } else if (greetingAudio) {
+        greetingAudio.pause();
       }
     });
   }
