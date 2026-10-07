@@ -271,3 +271,43 @@
     })();
   }
 })();
+/* ============================================================
+   3D SMART BOT — injects the animated robot into every .bot-slot
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var botHTML =
+    '<div class="bot-3d" aria-hidden="true">' +
+      '<div class="bot-scene">' +
+        '<div class="bot-orbit bot-orbit-1"></div>' +
+        '<div class="bot-orbit bot-orbit-2"></div>' +
+        '<div class="bot-body">' +
+          '<div class="bot-arm left"></div>' +
+          '<div class="bot-arm right"></div>' +
+          '<div class="bot-torso">' +
+            '<div class="bot-chest"></div>' +
+          '</div>' +
+          '<div class="bot-neck"></div>' +
+          '<div class="bot-head">' +
+            '<div class="bot-antenna"><span></span></div>' +
+            '<div class="bot-ear left"></div>' +
+            '<div class="bot-ear right"></div>' +
+            '<div class="bot-visor">' +
+              '<span class="bot-eye"></span>' +
+              '<span class="bot-eye"></span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="bot-particle"></div>' +
+        '<div class="bot-particle"></div>' +
+        '<div class="bot-particle"></div>' +
+        '<div class="bot-particle"></div>' +
+      '</div>' +
+      '<div class="bot-shadow"></div>' +
+    '</div>';
+
+  document.querySelectorAll('.bot-slot').forEach(function (slot) {
+    slot.innerHTML = botHTML;
+  });
+})();
