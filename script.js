@@ -246,3 +246,55 @@
   }
 
 })();
+/* ============================================================
+   FLOATING 3D SCROLL COMPANION
+   Follows scroll position smoothly with lerp animation
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var companion = document.getElementById('scrollCompanion');
+  if (!companion) return;
+
+  // Skip on mobile if reduced motion is set
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var targetY = 0;
+  var currentY = 0;
+  var initialized = false;
+
+  function computeTarget() {
+    var doc = document.documentElement;
+    var maxScroll = doc.scrollHeight - window.innerHeight;
+    var progress = maxScroll > 0 ? (window.scrollY / maxScroll) : 0;
+
+    // Range: start slightly below top, end slightly above bottom
+    var startY = window.innerHeight * 0.18;
+    var endY   = window.innerHeight * 0.70;
+    targetY = startY + progress * (endY - startY);
+
+    // Fade in once user has scrolled a bit
+    if (window.scrollY > 100) {
+      companion.classList.add('visible');
+    } else {
+      companion.classList.remove('visible');
+    }
+  }
+
+  function tick() {
+    // Smooth lerp for buttery motion
+    currentY += (targetY - currentY) * 0.10;
+    companion.style.transform = 'translate3d(0, ' + currentY.toFixed(2) + 'px, 0)';
+    requestAnimationFrame(tick);
+  }
+
+  // Initial position — jump to target so there's no slide-in on first load
+  computeTarget();
+  currentY = targetY;
+  initialized = true;
+
+  window.addEventListener('scroll', computeTarget, { passive: true });
+  window.addEventListener('resize', computeTarget, { passive: true });
+
+  requestAnimationFrame(tick);
+})();
