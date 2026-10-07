@@ -357,3 +357,218 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   .service-card,
   .portfolio-card { animation: none !important; transition: none !important; }
 }
+/* ============================================================
+   PREMIUM ANIMATION SUITE
+   ============================================================ */
+
+/* ---------- 1. Animated mesh gradient in hero ---------- */
+.hero {
+  background-size: 200% 200%, 200% 200%, 200% 200% !important;
+  animation: meshShift 18s ease-in-out infinite;
+}
+@keyframes meshShift {
+  0%   { background-position: 0% 0%,   100% 100%, 50% 50%; }
+  33%  { background-position: 40% 20%,  60% 40%,  30% 70%; }
+  66%  { background-position: 80% 60%,  20% 80%,  70% 30%; }
+  100% { background-position: 0% 0%,   100% 100%, 50% 50%; }
+}
+
+/* ---------- 2. Typewriter tagline ---------- */
+.hero-tagline {
+  min-height: 1.6em;
+  display: inline-block;
+}
+.hero-tagline .tw-text { color: #7dd3fc; }
+.hero-tagline .tw-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  background: #22d3ee;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  animation: twBlink .9s step-end infinite;
+  box-shadow: 0 0 10px #22d3ee;
+}
+@keyframes twBlink { 50% { opacity: 0; } }
+
+/* ---------- 3. Scroll progress bar ---------- */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9);
+  z-index: 9999;
+  box-shadow: 0 0 12px rgba(34,211,238,.7);
+  transition: width .08s linear;
+  pointer-events: none;
+}
+
+/* ---------- 4. Animated stat counters ---------- */
+.stats-bar {
+  background: linear-gradient(135deg, #050a16, #0a1428);
+  padding: 56px 0;
+  border-top: 1px solid rgba(34,211,238,.15);
+  border-bottom: 1px solid rgba(34,211,238,.15);
+  position: relative;
+  overflow: hidden;
+}
+.stats-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px 200px at 50% 50%,
+              rgba(34,211,238,.08), transparent 70%);
+  pointer-events: none;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 28px;
+  position: relative;
+}
+.stat-item {
+  text-align: center;
+  color: #cbd5e1;
+}
+.stat-number {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(120deg, #60a5fa, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+  display: inline-block;
+}
+.stat-suffix {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(120deg, #60a5fa, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+}
+.stat-label {
+  display: block;
+  margin-top: 10px;
+  font-size: .82rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #7dd3fc;
+  font-weight: 600;
+}
+
+/* ---------- 5. Infinite skills marquee ---------- */
+.marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 22px 0;
+  background: #050a16;
+  border-top: 1px solid rgba(34,211,238,.15);
+  border-bottom: 1px solid rgba(34,211,238,.15);
+  -webkit-mask-image: linear-gradient(90deg,
+                  transparent 0%, #000 12%, #000 88%, transparent 100%);
+          mask-image: linear-gradient(90deg,
+                  transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+.marquee-track {
+  display: flex;
+  gap: 42px;
+  width: max-content;
+  animation: marqueeScroll 34s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-item {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #cbd5e1;
+  letter-spacing: .04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 42px;
+  white-space: nowrap;
+}
+.marquee-item::after {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 10px #22d3ee;
+}
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (max-width: 640px) {
+  .marquee-item { font-size: .98rem; }
+  .marquee-track { gap: 30px; }
+  .marquee-item { gap: 30px; }
+}
+
+/* ---------- 6. Gradient shimmer on buttons ---------- */
+.btn-primary,
+.btn-wa {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after,
+.btn-wa::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 60%; height: 100%;
+  background: linear-gradient(100deg,
+              transparent,
+              rgba(255,255,255,.35),
+              transparent);
+  transform: skewX(-20deg);
+  transition: left .8s ease;
+}
+.btn-primary:hover::after,
+.btn-wa:hover::after { left: 130%; }
+
+/* ---------- 7. Cursor glow (desktop only) ---------- */
+.cursor-glow {
+  position: fixed;
+  top: 0; left: 0;
+  width: 380px; height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+              rgba(34,211,238,.12), transparent 65%);
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  transition: opacity .35s ease;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+.cursor-glow.active { opacity: 1; }
+@media (hover: none) { .cursor-glow { display: none; } }
+
+/* ---------- 8. Section reveal with blur ---------- */
+.reveal {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(28px);
+  transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1),
+              filter .9s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hero,
+  .marquee-track,
+  .hero-tagline .tw-cursor { animation: none !important; }
+  .reveal { opacity: 1; filter: none; transform: none; transition: none; }
+}
