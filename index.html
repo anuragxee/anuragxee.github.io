@@ -91,19 +91,18 @@
         </div>
       </div>
 
-      <!-- 3D Walk Companion -->
-      <div class="hero-3d">
-        <iframe 
-          src="https://three.ws/walk-embed?avatar=3d209f08-c4fd-406c-80ec-c53cc1a35450&env=studio&controls=joystick&bg=transparent&speed=1"
-          width="480"
-          height="420"
-          style="border:0;border-radius:18px;max-width:100%;background:transparent;display:block;"
-          allow="autoplay; accelerometer; gyroscope; xr-spatial-tracking"
-          loading="lazy"
-          title="Interactive 3D Companion">
-        </iframe>
-      </div>
-    </div>
+            <aside class="hero-card" aria-label="Profile summary">
+        <img class="hero-logo" src="assets/logo.svg" alt="Anurag Digital Services logo" width="104" height="104">
+        <h2 class="hero-card-name">Anurag Kumar</h2>
+        <p class="hero-card-role">Digital Services Specialist</p>
+        <ul class="hero-card-list">
+          <li><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Patna, Bihar, India</li>
+          <li><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 8.2-7 9-4-.8-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg> Digital Marketing &amp; E-commerce</li>
+          <li><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10M15 10v10"/></svg> Excel · Amazon · Flipkart</li>
+        </ul>
+        <a class="btn btn-primary btn-block" href="#contact">Start a Project</a>
+        <p class="hero-card-note">Let's Build Something Great</p>
+      </aside>
   </section>
 
   <!-- ===================== STATS BAR ===================== -->
@@ -499,6 +498,37 @@
     loading="lazy"
     title="3D Companion">
   </iframe>
+</div>
+  <!-- Floating animated bot -->
+<div class="bot-companion" id="botCompanion" aria-hidden="true">
+  <div class="bot-3d">
+    <div class="bot-scene">
+      <div class="bot-orbit bot-orbit-1"></div>
+      <div class="bot-orbit bot-orbit-2"></div>
+      <div class="bot-body">
+        <div class="bot-arm left"></div>
+        <div class="bot-arm right"></div>
+        <div class="bot-torso">
+          <div class="bot-chest"></div>
+        </div>
+        <div class="bot-neck"></div>
+        <div class="bot-head">
+          <div class="bot-antenna"><span></span></div>
+          <div class="bot-ear left"></div>
+          <div class="bot-ear right"></div>
+          <div class="bot-visor">
+            <span class="bot-eye"></span>
+            <span class="bot-eye"></span>
+          </div>
+        </div>
+      </div>
+      <div class="bot-particle"></div>
+      <div class="bot-particle"></div>
+      <div class="bot-particle"></div>
+      <div class="bot-particle"></div>
+    </div>
+    <div class="bot-shadow"></div>
+  </div>
 </div>
 <script src="script.js"></script>
   <script type="text/javascript">
