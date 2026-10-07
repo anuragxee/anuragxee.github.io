@@ -1138,3 +1138,51 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   .bot-companion,
   .bot-companion *{animation:none !important}
 }
+/* ============================================================
+   SOUND TOGGLE BUTTON
+   ============================================================ */
+.sound-toggle{
+  position:fixed;
+  left:20px;
+  bottom:20px;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:rgba(5,10,22,.9);
+  border:1.5px solid rgba(34,211,238,.4);
+  color:#22d3ee;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  z-index:9997;
+  backdrop-filter:blur(10px);
+  transition:transform .25s ease, background .25s ease, border-color .25s ease;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);
+}
+.sound-toggle:hover{
+  transform:scale(1.08);
+  background:linear-gradient(135deg,#2563eb,#22d3ee);
+  border-color:transparent;
+  color:#fff;
+}
+.sound-toggle:focus-visible{
+  outline:2px solid #22d3ee;
+  outline-offset:3px;
+}
+.sound-toggle .sound-off{display:none}
+.sound-toggle.muted .sound-on{display:none}
+.sound-toggle.muted .sound-off{display:block}
+.sound-toggle.muted{
+  border-color:rgba(148,163,184,.4);
+  color:#64748b;
+}
+
+/* Mobile adjustments */
+@media (max-width:640px){
+  .sound-toggle{
+    left:12px;
+    bottom:12px;
+    width:42px;
+    height:42px;
+  }
+}
