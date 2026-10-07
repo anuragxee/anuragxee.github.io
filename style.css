@@ -956,54 +956,94 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   .bot-particle { animation: none !important; }
                           }
 /* ============================================================
-   ANIME SCROLL COMPANION + ANIME CURSOR
+   ANIME ROPE-SLIDING COMPANION + ANIME CURSOR
    ============================================================ */
 
-/* ---------- Scroll companion ---------- */
+/* ---------- The vertical rope on the right ---------- */
+.rope-line {
+  position: fixed;
+  right: 78px;
+  top: 0;
+  height: 100vh;
+  width: 20px;
+  z-index: 88;
+  pointer-events: none;
+  opacity: 0.75;
+}
+.rope-line svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(34,211,238,0.55));
+}
+
+/* Glowing anchor at top of the rope */
+.rope-anchor {
+  position: fixed;
+  top: 0;
+  right: 68px;
+  width: 40px;
+  height: 40px;
+  z-index: 89;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,211,238,0.9), rgba(34,211,238,0));
+  filter: blur(2px);
+  animation: anchorPulse 2.4s ease-in-out infinite;
+}
+@keyframes anchorPulse {
+  0%, 100% { transform: scale(1);    opacity: 0.8; }
+  50%      { transform: scale(1.35); opacity: 1;   }
+}
+
+/* ---------- The character itself ---------- */
 .scroll-companion {
   position: fixed;
-  right: 16px;
-  bottom: 0;
-  width: 130px;
+  right: 12px;
+  top: 0;
+  width: 150px;
   height: auto;
-  z-index: 90;
+  z-index: 91;
   pointer-events: none;
   will-change: transform;
   transform: translate3d(0, 0, 0);
-  transition: opacity .5s ease;
 }
 .companion-svg {
   width: 100%;
   height: auto;
   display: block;
-  filter: drop-shadow(0 12px 24px rgba(34,211,238,0.28));
+  filter: drop-shadow(0 14px 26px rgba(34,211,238,0.3))
+          drop-shadow(0 0 20px rgba(34,211,238,0.15));
 }
 
-/* Idle breathing (subtle squash + bob) */
+/* Gentle swing while hanging from rope */
+.companion-svg .c-head,
 .companion-svg .c-body,
-.companion-svg .c-head {
-  transform-origin: 100px 200px;
-  animation: cBreathe 3.6s ease-in-out infinite;
+.companion-svg .c-legs,
+.companion-svg .c-shoes,
+.companion-svg .c-grip {
+  transform-origin: 110px 175px;   /* where hands grip the rope */
+  animation: cSwing 3.8s ease-in-out infinite;
 }
-@keyframes cBreathe {
-  0%, 100% { transform: translateY(0) scaleY(1); }
-  50%      { transform: translateY(-3px) scaleY(1.015); }
+@keyframes cSwing {
+  0%, 100% { transform: rotate(-2deg); }
+  50%      { transform: rotate(2deg);  }
 }
 
-/* Hair sway */
+/* Head sway (extra) */
 .companion-svg .c-head {
-  animation: cBreathe 3.6s ease-in-out infinite, cSway 5s ease-in-out infinite;
-  transform-origin: 100px 150px;
+  transform-origin: 110px 175px;
+  animation: cSwing 3.8s ease-in-out infinite, cHeadSway 5s ease-in-out infinite;
 }
-@keyframes cSway {
-  0%, 100% { transform: rotate(-1.6deg) translateY(0); }
-  50%      { transform: rotate(1.6deg)  translateY(-3px); }
+@keyframes cHeadSway {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50%      { transform: rotate(2deg)  translateY(-2px); }
 }
 
 /* Eyes blink */
 .companion-svg .c-eye-l,
 .companion-svg .c-eye-r {
-  transform-origin: center 128px;
+  transform-origin: center 135px;
   animation: cBlink 5s infinite;
 }
 @keyframes cBlink {
@@ -1012,46 +1052,55 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   96%           { transform: scaleY(1); }
 }
 
-/* Arms swing */
-.companion-svg .c-arm-left  { transform-origin: 46px 220px;  animation: cArmL 3.2s ease-in-out infinite; }
-.companion-svg .c-arm-right { transform-origin: 154px 220px; animation: cArmR 3.2s ease-in-out infinite; }
-@keyframes cArmL { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(-11deg); } }
-@keyframes cArmR { 0%,100% { transform: rotate(3deg);  } 50% { transform: rotate(11deg);  } }
+/* Legs kick gently (as if sliding down the rope) */
+.companion-svg .c-legs,
+.companion-svg .c-shoes {
+  transform-origin: 110px 300px;
+  animation: cKick 2.6s ease-in-out infinite;
+}
+@keyframes cKick {
+  0%, 100% { transform: rotate(-3deg); }
+  50%      { transform: rotate(4deg);  }
+}
 
-/* Floating sparks around character */
-.companion-svg .c-spark { animation: cFloat 4s ease-in-out infinite; }
+/* Sparks */
+.companion-svg .c-spark { animation: cFloat 3.4s ease-in-out infinite; }
 .companion-svg .c-spark.s1 { animation-delay: 0s;   }
-.companion-svg .c-spark.s2 { animation-delay: 1s;   }
-.companion-svg .c-spark.s3 { animation-delay: 2s;   }
-.companion-svg .c-spark.s4 { animation-delay: 3s;   }
+.companion-svg .c-spark.s2 { animation-delay: 0.9s; }
+.companion-svg .c-spark.s3 { animation-delay: 1.7s; }
+.companion-svg .c-spark.s4 { animation-delay: 2.5s; }
 @keyframes cFloat {
-  0%, 100% { opacity: .3; transform: translateY(0)   scale(1); }
-  50%      { opacity: 1;  transform: translateY(-10px) scale(1.4); }
+  0%, 100% { opacity: 0.3; transform: translateY(0)     scale(1); }
+  50%      { opacity: 1;   transform: translateY(-12px) scale(1.5); }
 }
 
-/* Walking state (added by JS while scrolling) */
-.scroll-companion.walking .companion-svg {
-  animation: cWalkBob .28s ease-in-out infinite;
+/* Fast-slide state (added by JS while actively scrolling) */
+.scroll-companion.sliding .companion-svg {
+  animation: cSlideShake 0.18s ease-in-out infinite;
 }
-@keyframes cWalkBob {
-  0%, 100% { transform: translateY(0)   rotate(-2.5deg); }
-  50%      { transform: translateY(-6px) rotate(2.5deg); }
+@keyframes cSlideShake {
+  0%, 100% { transform: translateY(0)   rotate(-2deg); }
+  50%      { transform: translateY(-3px) rotate(2deg);  }
 }
 
-/* Responsive size */
+/* Responsive sizes */
 @media (max-width: 820px) {
-  .scroll-companion { width: 96px; right: 8px; }
+  .scroll-companion { width: 110px; right: 8px; }
+  .rope-line { right: 56px; }
+  .rope-anchor { right: 46px; width: 32px; height: 32px; }
 }
 @media (max-width: 480px) {
-  .scroll-companion { width: 82px; right: 6px; opacity: .92; }
+  .scroll-companion { width: 88px; right: 4px; }
+  .rope-line { right: 44px; width: 14px; }
+  .rope-anchor { right: 34px; width: 26px; height: 26px; }
 }
 
 /* ---------- Anime cursor (desktop only) ---------- */
 .cursor-character {
   position: fixed;
   top: 0; left: 0;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   pointer-events: none;
   z-index: 99999;
   transform: translate(-50%, -50%);
@@ -1065,9 +1114,8 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
           drop-shadow(0 0 20px rgba(34,211,238,0.35));
 }
 .cursor-character.active { opacity: 1; }
-.cursor-character.grow   { width: 68px; height: 68px; }
+.cursor-character.grow   { width: 70px; height: 70px; }
 
-/* Hide native cursor on desktop */
 body.cursor-none,
 body.cursor-none a,
 body.cursor-none button,
@@ -1075,14 +1123,13 @@ body.cursor-none input,
 body.cursor-none select,
 body.cursor-none textarea { cursor: none !important; }
 
-/* Never show the anime cursor on touch devices */
 @media (hover: none), (pointer: coarse) {
   .cursor-character { display: none !important; }
   body.cursor-none, body.cursor-none * { cursor: auto !important; }
 }
 
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .scroll-companion .companion-svg *,
-  .scroll-companion.walking .companion-svg { animation: none !important; }
+  .companion-svg *,
+  .scroll-companion.sliding .companion-svg,
+  .rope-anchor { animation: none !important; }
 }
