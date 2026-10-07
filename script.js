@@ -248,55 +248,7 @@
 })();
 
 /* ============================================================
-   FLOATING BOT COMPANION
-   Moves up/down with scroll — smooth lerp
-   ============================================================ */
-(function () {
-  'use strict';
-
-  var bot = document.getElementById('botCompanion');
-  if (!bot) return;
-
-  // Skip if user prefers reduced motion
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  var targetY = 0;
-  var currentY = 0;
-
-  function computeTarget() {
-    var doc = document.documentElement;
-    var maxScroll = doc.scrollHeight - window.innerHeight;
-    var progress = maxScroll > 0 ? (window.scrollY / maxScroll) : 0;
-
-    // Bot travels from top ~20% to bottom ~75% of viewport
-    var startY = window.innerHeight * 0.20;
-    var endY   = window.innerHeight * 0.72;
-    targetY = startY + progress * (endY - startY);
-
-    // Fade in only after user scrolls past hero
-    if (window.scrollY > 100) {
-      bot.classList.add('visible');
-    } else {
-      bot.classList.remove('visible');
-    }
-  }
-
-  function tick() {
-    currentY += (targetY - currentY) * 0.10;
-    bot.style.transform = 'translate3d(0, ' + currentY.toFixed(2) + 'px, 0)';
-    requestAnimationFrame(tick);
-  }
-
-  computeTarget();
-  currentY = targetY;
-
-  window.addEventListener('scroll', computeTarget, { passive: true });
-  window.addEventListener('resize', computeTarget, { passive: true });
-
-  requestAnimationFrame(tick);
-})();
-/* ============================================================
-   FLOATING BOT COMPANION
+   FLOATING BOT COMPANION (single instance)
    Moves up/down with scroll using smooth lerp
    ============================================================ */
 (function () {
@@ -305,7 +257,6 @@
   var bot = document.getElementById('botCompanion');
   if (!bot) return;
 
-  // Skip if user prefers reduced motion
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var targetY = 0;
@@ -316,12 +267,10 @@
     var maxScroll = doc.scrollHeight - window.innerHeight;
     var progress = maxScroll > 0 ? (window.scrollY / maxScroll) : 0;
 
-    // Bot travels from top 20% to bottom 72% of viewport
     var startY = window.innerHeight * 0.20;
     var endY   = window.innerHeight * 0.72;
     targetY = startY + progress * (endY - startY);
 
-    // Fade in only after user scrolls past the hero
     if (window.scrollY > 100) {
       bot.classList.add('visible');
     } else {
@@ -330,7 +279,6 @@
   }
 
   function tick() {
-    // Smooth lerp toward target
     currentY += (targetY - currentY) * 0.10;
     bot.style.transform = 'translate3d(0, ' + currentY.toFixed(2) + 'px, 0)';
     requestAnimationFrame(tick);
@@ -344,10 +292,11 @@
 
   requestAnimationFrame(tick);
 })();
+
 /* ============================================================
-   SOUND EFFECTS — Greeting + Click sounds
-   Uses Web Audio API (no files) + Web Speech API (greeting)
-   Browsers block autoplay, so greeting fires on first interaction
+   SOUND EFFECTS — Click tick + Greeting (voice)
+   Web Audio API for clicks (reliable everywhere)
+   SpeechSynthesis for greeting (called ONLY inside user tap handler)
    ============================================================ */
 (function () {
   'use strict';
@@ -356,155 +305,128 @@
   var soundEnabled = true;
   var greetingPlayed = false;
 
-  /* Restore mute preference from last visit */
   try {
-    if (localStorage.getItem('ads_sound_muted') === '1') {
-      soundEnabled = false;
-    }
-  } catch (e) { /* ignore */ }
+    if (localStorage.getItem('ads_sound_muted') === '1') soundEnabled = false;
+  } catch (e) {}
 
-  /* Create AudioContext on first use */
   function getCtx() {
     if (!audioCtx) {
-      try {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      } catch (e) {
-        return null;
-      }
+      try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+      catch (e) { return null; }
     }
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
     return audioCtx;
   }
 
-  /* ---------- CLICK SOUND (short clean "tick") ---------- */
+  /* ---------- CLICK tick ---------- */
   function playClick() {
     if (!soundEnabled) return;
-    var ctx = getCtx();
-    if (!ctx) return;
-
+    var ctx = getCtx(); if (!ctx) return;
     var now = ctx.currentTime;
-
-    // High tick
     var osc = ctx.createOscillator();
     osc.type = 'sine';
     osc.frequency.setValueAtTime(880, now);
     osc.frequency.exponentialRampToValueAtTime(1200, now + 0.04);
-
     var gain = ctx.createGain();
     gain.gain.setValueAtTime(0.0001, now);
     gain.gain.exponentialRampToValueAtTime(0.08, now + 0.005);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
-
     osc.connect(gain).connect(ctx.destination);
     osc.start(now);
     osc.stop(now + 0.1);
   }
 
-  /* ---------- HOVER SOUND (subtle softer tick) ---------- */
+  /* ---------- HOVER tick (soft) ---------- */
   function playHover() {
     if (!soundEnabled) return;
-    var ctx = getCtx();
-    if (!ctx) return;
-
+    var ctx = getCtx(); if (!ctx) return;
     var now = ctx.currentTime;
     var osc = ctx.createOscillator();
     osc.type = 'sine';
     osc.frequency.setValueAtTime(1600, now);
-
     var gain = ctx.createGain();
     gain.gain.setValueAtTime(0.0001, now);
     gain.gain.exponentialRampToValueAtTime(0.025, now + 0.004);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
-
     osc.connect(gain).connect(ctx.destination);
     osc.start(now);
     osc.stop(now + 0.06);
   }
 
-  /* ---------- GREETING (voice via SpeechSynthesis) ---------- */
-  function playGreeting() {
+  /* ---------- GREETING voice ----------
+     MUST be called directly inside a click/tap handler.
+     No setTimeout, no async — that's how mobile browsers allow it. */
+  function speakGreetingNow() {
     if (!soundEnabled || greetingPlayed) return;
+    if (!('speechSynthesis' in window)) return;
     greetingPlayed = true;
 
-    if (!('speechSynthesis' in window)) return;
+    try {
+      window.speechSynthesis.cancel(); // clear queued
+      var utter = new SpeechSynthesisUtterance('Hey, welcome to Anurag Digital Services.');
+      utter.rate = 1.0;
+      utter.pitch = 1.05;
+      utter.volume = 0.9;
+      utter.lang = 'en-IN';
 
-    // Small delay so first interaction feels natural
-    setTimeout(function () {
-      try {
-        var utter = new SpeechSynthesisUtterance(
-          'Hey, welcome to Anurag Digital Services.'
-        );
-        utter.rate = 1.0;
-        utter.pitch = 1.05;
-        utter.volume = 0.85;
-        utter.lang = 'en-IN'; // Indian English
+      // Prefer Indian English voice if available
+      var voices = window.speechSynthesis.getVoices();
+      var preferred = voices.find(function (v) {
+        return /en[-_]IN|India/i.test(v.lang + ' ' + v.name);
+      });
+      if (preferred) utter.voice = preferred;
 
-        // Prefer an Indian English voice if available
-        var voices = window.speechSynthesis.getVoices();
-        var preferred = voices.find(function (v) {
-          return /en-IN|en_IN|India/i.test(v.lang + ' ' + v.name);
-        });
-        if (preferred) utter.voice = preferred;
-
-        window.speechSynthesis.cancel(); // clear any queued
-        window.speechSynthesis.speak(utter);
-      } catch (e) { /* silent */ }
-    }, 350);
+      window.speechSynthesis.speak(utter);
+    } catch (e) { /* silent */ }
   }
 
-  /* ---------- ATTACH CLICK SOUNDS TO INTERACTIVE ELEMENTS ---------- */
-  var clickTargets = 'a, button, .btn, .service-card, .portfolio-card, .skill-item, .contact-card, input, select, textarea, .nav-link, .sound-toggle';
+  /* Preload voice list (some browsers load async) */
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.onvoiceschanged = function () {
+      window.speechSynthesis.getVoices();
+    };
+    window.speechSynthesis.getVoices();
+  }
+
+  /* ---------- CLICK handler — plays tick + fires greeting once ---------- */
+  var clickTargets = 'a, button, .btn, .service-card, .portfolio-card, .skill-item, .contact-card, input, select, textarea, .nav-link';
 
   document.addEventListener('click', function (e) {
-    if (e.target.closest(clickTargets)) {
-      playClick();
-    }
-    // First click anywhere also triggers greeting if not yet played
-    playGreeting();
+    // Skip click sound when user clicks the sound toggle
+    if (e.target.closest('.sound-toggle')) return;
+
+    // Fire the greeting on the very first user click, DIRECTLY in handler
+    speakGreetingNow();
+
+    // Play the tick if they clicked an interactive element
+    if (e.target.closest(clickTargets)) playClick();
   }, true);
 
-  /* Hover sound on buttons/links (desktop only) */
+  /* Also fire greeting on first touchstart (mobile) */
+  document.addEventListener('touchstart', function () {
+    speakGreetingNow();
+  }, { passive: true, once: true });
+
+  /* Hover sound (desktop only) */
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     document.addEventListener('mouseover', function (e) {
-      if (e.target.closest('a, button, .btn')) {
-        playHover();
-      }
+      if (e.target.closest('a, button, .btn')) playHover();
     }, true);
   }
 
-  /* ---------- TRIGGER GREETING ON FIRST INTERACTION ---------- */
-  function armGreeting() {
-    // slight delay lets audioctx initialize cleanly
-    setTimeout(playGreeting, 100);
-    window.removeEventListener('scroll', armGreeting);
-    window.removeEventListener('mousemove', armGreeting);
-    window.removeEventListener('touchstart', armGreeting);
-    window.removeEventListener('keydown', armGreeting);
-  }
-  window.addEventListener('scroll', armGreeting, { passive: true, once: true });
-  window.addEventListener('mousemove', armGreeting, { passive: true, once: true });
-  window.addEventListener('touchstart', armGreeting, { passive: true, once: true });
-  window.addEventListener('keydown', armGreeting, { once: true });
-
-  /* ---------- SOUND TOGGLE BUTTON ---------- */
+  /* ---------- Sound toggle button ---------- */
   var toggleBtn = document.getElementById('soundToggle');
   if (toggleBtn) {
-    // Reflect saved state
     if (!soundEnabled) toggleBtn.classList.add('muted');
 
     toggleBtn.addEventListener('click', function (e) {
-      e.stopPropagation(); // don't play click sound on the toggle itself
+      e.stopPropagation();
       soundEnabled = !soundEnabled;
       toggleBtn.classList.toggle('muted', !soundEnabled);
 
-      try {
-        localStorage.setItem('ads_sound_muted', soundEnabled ? '0' : '1');
-      } catch (err) { /* ignore */ }
+      try { localStorage.setItem('ads_sound_muted', soundEnabled ? '0' : '1'); } catch (err) {}
 
       if (soundEnabled) {
-        // tiny confirmation tick when unmuting
         setTimeout(playClick, 60);
       } else if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
