@@ -572,3 +572,59 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   .hero-tagline .tw-cursor { animation: none !important; }
   .reveal { opacity: 1; filter: none; transform: none; transition: none; }
 }
+/* ============ CHARACTER ILLUSTRATIONS ============ */
+
+.hero-character {
+  display: none; /* hidden by default on mobile */
+}
+
+.section-character {
+  max-width: 280px;
+  margin: 0 auto 34px;
+  text-align: center;
+  animation: floatCharacter 6s ease-in-out infinite;
+}
+
+.section-character img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 20px 40px rgba(34, 211, 238, 0.15));
+}
+
+@keyframes floatCharacter {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+/* Hide character from Skills section on dark bg is fine — no change needed */
+
+/* Tablet and up — show hero character next to hero copy */
+@media (min-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1.1fr 0.55fr 0.75fr;
+    gap: 32px;
+  }
+  .hero-character {
+    display: block;
+    max-width: 320px;
+    animation: floatCharacter 6s ease-in-out infinite;
+  }
+  .hero-character img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 30px 60px rgba(34, 211, 238, 0.2));
+  }
+}
+
+/* Slightly bigger character on very wide screens */
+@media (min-width: 1200px) {
+  .section-character { max-width: 320px; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .section-character,
+  .hero-character { animation: none !important; }
+}
