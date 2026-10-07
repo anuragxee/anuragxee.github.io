@@ -311,3 +311,120 @@
     slot.innerHTML = botHTML;
   });
 })();
+/* ============================================================
+   ANIME SCROLL COMPANION + ANIME CURSOR
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ---------------------------------------------------------
+     1) SCROLL COMPANION — bobs, slides, and "walks" as you scroll
+     --------------------------------------------------------- */
+  var companion = document.getElementById('scrollCompanion');
+  if (companion) {
+
+    var targetY   = 0;      // desired translateY (from scroll)
+    var currentY  = 0;      // smoothed translateY
+    var lastScroll = window.scrollY;
+    var walkTimer = null;
+
+    function computeTarget() {
+      var doc = document.documentElement;
+      var maxScroll = doc.scrollHeight - window.innerHeight;
+      var progress  = maxScroll > 0 ? (window.scrollY / maxScroll) : 0;
+
+      // Character travels between bottom and mid-upper of viewport
+      var travelRange = window.innerHeight * 0.55;      // 55% of viewport height
+      var bottomBase  = window.innerHeight * 0.06;      // base 6% from bottom
+      // progress 0 → bottom, progress 1 → higher up
+      targetY = bottomBase - (progress * travelRange);
+
+      // Slight horizontal slide for a "walking alongside" feel
+      var sideSlide = Math.sin(progress * Math.PI * 3) * 10;
+      companion.style.setProperty('--slideX', sideSlide + 'px');
+    }
+
+    function tick() {
+      // Smooth lerp toward target
+      currentY += (targetY - currentY) * 0.09;
+      var slideX = parseFloat(getComputedStyle(companion).getPropertyValue('--slideX')) || 0;
+
+      companion.style.transform =
+        'translate3d(' + slideX + 'px,' + (-currentY) + 'px,0)';
+
+      requestAnimationFrame(tick);
+    }
+
+    // Recompute target on resize / scroll
+    function onScroll() {
+      computeTarget();
+
+      // Toggle "walking" state for a moment after scrolling stops
+      companion.classList.add('walking');
+      clearTimeout(walkTimer);
+      walkTimer = setTimeout(function () {
+        companion.classList.remove('walking');
+      }, 220);
+
+      lastScroll = window.scrollY;
+    }
+
+    // Init
+    computeTarget();
+    currentY = targetY;
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', computeTarget, { passive: true });
+
+    requestAnimationFrame(tick);
+  }
+
+  /* ---------------------------------------------------------
+     2) ANIME CURSOR — replaces mouse on desktop only
+     --------------------------------------------------------- */
+  var canHover  = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var cursorEl  = document.getElementById('cursorCharacter');
+
+  if (canHover && cursorEl) {
+    document.body.classList.add('cursor-none');
+
+    var mx = window.innerWidth / 2, my = window.innerHeight / 2;   // target
+    var cx = mx, cy = my;                                          // smoothed
+    var visible = false;
+
+    function move(e) {
+      mx = e.clientX;
+      my = e.clientY;
+      if (!visible) {
+        cursorEl.classList.add('active');
+        visible = true;
+      }
+    }
+
+    function loop() {
+      cx += (mx - cx) * 0.22;
+      cy += (my - cy) * 0.22;
+      cursorEl.style.transform =
+        'translate3d(' + (cx - cursorEl.offsetWidth  / 2) + 'px,' +
+                          (cy - cursorEl.offsetHeight / 2) + 'px,0)';
+      requestAnimationFrame(loop);
+    }
+
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseleave', function () {
+      cursorEl.classList.remove('active');
+      visible = false;
+    });
+
+    // Grow on interactive elements
+    var interactive = 'a, button, .btn, input, select, textarea, .service-card, .portfolio-card, .skill-item';
+    document.addEventListener('mouseover', function (e) {
+      if (e.target.closest(interactive)) cursorEl.classList.add('grow');
+    });
+    document.addEventListener('mouseout', function (e) {
+      if (e.target.closest(interactive)) cursorEl.classList.remove('grow');
+    });
+
+    requestAnimationFrame(loop);
+  }
+})();
