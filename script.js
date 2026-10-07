@@ -165,3 +165,109 @@
     });
   }
 })();
+/* ============================================================
+   PREMIUM ANIMATION SUITE — JavaScript
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ---------- 1. Typewriter for hero tagline ---------- */
+  var tagline = document.querySelector('.hero-tagline');
+  if (tagline) {
+    var originalText = tagline.textContent.trim();
+    var pieces = originalText.split('|').map(function (p) { return p.trim(); });
+    tagline.innerHTML = '<span class="tw-text"></span><span class="tw-cursor"></span>';
+    var twText = tagline.querySelector('.tw-text');
+
+    var lineIndex = 0;
+    var charIndex = 0;
+    var deleting = false;
+
+    function tick() {
+      var current = pieces[lineIndex];
+      if (!deleting) {
+        charIndex++;
+        twText.textContent = current.slice(0, charIndex);
+        if (charIndex === current.length) {
+          deleting = true;
+          return setTimeout(tick, 1600);
+        }
+        return setTimeout(tick, 55);
+      } else {
+        charIndex--;
+        twText.textContent = current.slice(0, charIndex);
+        if (charIndex === 0) {
+          deleting = false;
+          lineIndex = (lineIndex + 1) % pieces.length;
+          return setTimeout(tick, 320);
+        }
+        return setTimeout(tick, 28);
+      }
+    }
+    setTimeout(tick, 600);
+  }
+
+  /* ---------- 2. Scroll progress bar ---------- */
+  var bar = document.createElement('div');
+  bar.className = 'scroll-progress';
+  document.body.appendChild(bar);
+  function updateProgress() {
+    var h = document.documentElement;
+    var scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    bar.style.width = (scrolled * 100).toFixed(2) + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  /* ---------- 3. Animated stat counters ---------- */
+  function animateCount(el) {
+    var target = parseFloat(el.getAttribute('data-target'));
+    var duration = 1600;
+    var start = performance.now();
+    function step(now) {
+      var p = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var val = Math.floor(eased * target);
+      el.textContent = val;
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(step);
+  }
+
+  var counters = document.querySelectorAll('.stat-number');
+  if (counters.length && 'IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function (c) { cio.observe(c); });
+  }
+
+  /* ---------- 4. Cursor glow follow (desktop only) ---------- */
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var glow = document.createElement('div');
+    glow.className = 'cursor-glow';
+    document.body.appendChild(glow);
+
+    var gx = 0, gy = 0, tx = 0, ty = 0;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX;
+      ty = e.clientY;
+      glow.classList.add('active');
+    });
+    document.addEventListener('mouseleave', function () {
+      glow.classList.remove('active');
+    });
+    (function loopGlow() {
+      gx += (tx - gx) * 0.16;
+      gy += (ty - gy) * 0.16;
+      glow.style.transform = 'translate(' + gx + 'px,' + gy + 'px) translate(-50%,-50%)';
+      requestAnimationFrame(loopGlow);
+    })();
+  }
+})();
