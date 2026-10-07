@@ -91,7 +91,7 @@
         </div>
       </div>
 
-            <aside class="hero-card" aria-label="Profile summary">
+      <aside class="hero-card" aria-label="Profile summary">
         <img class="hero-logo" src="assets/logo.svg" alt="Anurag Digital Services logo" width="104" height="104">
         <h2 class="hero-card-name">Anurag Kumar</h2>
         <p class="hero-card-role">Digital Services Specialist</p>
@@ -103,6 +103,7 @@
         <a class="btn btn-primary btn-block" href="#contact">Start a Project</a>
         <p class="hero-card-note">Let's Build Something Great</p>
       </aside>
+    </div>
   </section>
 
   <!-- ===================== STATS BAR ===================== -->
@@ -487,7 +488,7 @@
   </div>
 </footer>
 
-  <!-- Floating animated bot -->
+<!-- Floating 2D animated bot (single instance) -->
 <div class="bot-companion" id="botCompanion" aria-hidden="true">
   <div class="bot-3d">
     <div class="bot-scene">
@@ -518,38 +519,8 @@
     <div class="bot-shadow"></div>
   </div>
 </div>
-  <!-- Floating 2D animated bot -->
-<div class="bot-companion" id="botCompanion" aria-hidden="true">
-  <div class="bot-3d">
-    <div class="bot-scene">
-      <div class="bot-orbit bot-orbit-1"></div>
-      <div class="bot-orbit bot-orbit-2"></div>
-      <div class="bot-body">
-        <div class="bot-arm left"></div>
-        <div class="bot-arm right"></div>
-        <div class="bot-torso">
-          <div class="bot-chest"></div>
-        </div>
-        <div class="bot-neck"></div>
-        <div class="bot-head">
-          <div class="bot-antenna"><span></span></div>
-          <div class="bot-ear left"></div>
-          <div class="bot-ear right"></div>
-          <div class="bot-visor">
-            <span class="bot-eye"></span>
-            <span class="bot-eye"></span>
-          </div>
-        </div>
-      </div>
-      <div class="bot-particle"></div>
-      <div class="bot-particle"></div>
-      <div class="bot-particle"></div>
-      <div class="bot-particle"></div>
-    </div>
-    <div class="bot-shadow"></div>
-  </div>
-</div>
-  <!-- Sound toggle button -->
+
+<!-- Sound toggle button -->
 <button class="sound-toggle" id="soundToggle" type="button" aria-label="Toggle sound effects" title="Toggle sound">
   <svg class="sound-on" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M11 5L6 9H2v6h4l5 4z"/>
@@ -562,21 +533,28 @@
     <line x1="16" y1="9" x2="22" y2="15"/>
   </svg>
 </button>
+
+<!-- Main site script -->
 <script src="script.js"></script>
-  <script type="text/javascript">
+
+<!-- Voiceflow AI chatbot (AVA) -->
+<script type="text/javascript">
   (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '6ac655cbfe453fbc29cb7e9b' },
-          url: 'https://general-runtime.voiceflow.com',
-          voice: {
-            url: 'https://runtime-api.voiceflow.com'
-          }
-        });
-      }
-      v.src = 'https://cdn.voiceflow.com/widget-next/bundle.mjs'; v.type = 'text/javascript'; s.parentNode.insertBefore(v, s);
+    var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+    v.onload = function() {
+      window.voiceflow.chat.load({
+        verify: { projectID: '6ac655cbfe453fbc29cb7e9b' },
+        url: 'https://general-runtime.voiceflow.com',
+        voice: {
+          url: 'https://runtime-api.voiceflow.com'
+        }
+      });
+    };
+    v.src = 'https://cdn.voiceflow.com/widget-next/bundle.mjs';
+    v.type = 'text/javascript';
+    s.parentNode.insertBefore(v, s);
   })(document, 'script');
 </script>
+
 </body>
 </html>
