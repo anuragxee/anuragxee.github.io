@@ -413,19 +413,19 @@
   }
 
 })();
+
 /* ============================================================
-   SCROLL-DRAWN BLUE LINE — draws down the whole page
+   SCROLL-DRAWN BLUE LINE
+   Reveals the stroke progressively as the user scrolls
    ============================================================ */
 (function () {
   'use strict';
 
   var path = document.getElementById('scrollLinePath');
-  var layer = document.querySelector('.scroll-line-layer');
-  if (!path || !layer) return;
+  if (!path) return;
 
-  // Get exact path length so dasharray matches perfectly
   var pathLength = path.getTotalLength();
-  path.style.strokeDasharray = pathLength;
+  path.style.strokeDasharray  = pathLength;
   path.style.strokeDashoffset = pathLength;
 
   var ticking = false;
@@ -438,22 +438,17 @@
     var totalScroll = doc.scrollHeight - window.innerHeight;
 
     if (totalScroll <= 0) {
-      // Page fits in viewport — draw fully
       path.style.strokeDashoffset = 0;
       return;
     }
 
-    // 0 at top, 1 at bottom
     var progress = window.scrollY / totalScroll;
     progress = Math.max(0, Math.min(1, progress));
 
-    // Avoid redraws when nothing meaningful changed
     if (Math.abs(progress - lastProgress) < 0.001) return;
     lastProgress = progress;
 
-    // Ease slightly for a more organic draw
-    var eased = 1 - Math.pow(1 - progress, 1.6);
-
+    var eased = 1 - Math.pow(1 - progress, 1.5);
     path.style.strokeDashoffset = pathLength * (1 - eased);
   }
 
@@ -465,27 +460,16 @@
   }
 
   function onResize() {
-    // Recompute everything
     pathLength = path.getTotalLength();
-    path.style.strokeDasharray = pathLength;
+    path.style.strokeDasharray  = pathLength;
     lastProgress = -1;
     updateLine();
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onResize);
+  window.addEventListener('load', updateLine);
 
-  // Sync height of the layer to the document on load
-  function syncLayerHeight() {
-    if (!layer) return;
-    var doc = document.documentElement;
-    layer.style.height = doc.scrollHeight + 'px';
-  }
-  window.addEventListener('load', syncLayerHeight);
-  window.addEventListener('resize', syncLayerHeight);
-  syncLayerHeight();
-
-  // Initial draw
   updateLine();
 
 })();
