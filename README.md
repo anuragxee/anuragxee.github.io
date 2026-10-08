@@ -4,7 +4,7 @@ Personal freelancer website for **Anurag Kumar** — Digital Marketing, Social M
 
 - Location: Patna, Bihar, India
 - Phone: +91 7061086068
-- Email: anurag123kumar1234567@gmail.com
+- Email: beanurag4@gmail.com
 - Live site: https://anuraxgee.github.io/
 
 ## Files
