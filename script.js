@@ -414,72 +414,78 @@
 
 })();
 /* ============================================================
-   SCROLL-DRAWN SWOOSH + POP REVEAL
+   SCROLL-DRAWN BLUE LINE — draws down the whole page
    ============================================================ */
 (function () {
   'use strict';
 
-  /* ---------- 1. Draw the swoosh based on scroll progress ---------- */
-  var path = document.getElementById('swooshPath');
-  var section = document.getElementById('boldIdeas');
+  var path = document.getElementById('scrollLinePath');
+  var layer = document.querySelector('.scroll-line-layer');
+  if (!path || !layer) return;
 
-  if (path && section) {
-    // Get actual path length so the animation is exact
-    var pathLength = path.getTotalLength();
-    path.style.strokeDasharray = pathLength;
-    path.style.strokeDashoffset = pathLength;
+  // Get exact path length so dasharray matches perfectly
+  var pathLength = path.getTotalLength();
+  path.style.strokeDasharray = pathLength;
+  path.style.strokeDashoffset = pathLength;
 
-    function updateSwoosh() {
-      var rect = section.getBoundingClientRect();
-      var vh = window.innerHeight;
+  var ticking = false;
+  var lastProgress = -1;
 
-      // Progress: 0 when section enters bottom of viewport,
-      //           1 when section top hits 25% of viewport
-      var start = vh;                        // top of section at bottom of viewport
-      var end   = vh * 0.25;                 // top of section at 25% viewport height
-      var rawProgress = (start - rect.top) / (start - end);
-      var progress = Math.max(0, Math.min(1, rawProgress));
+  function updateLine() {
+    ticking = false;
 
-      // Eased progress for smoother draw
-      var eased = 1 - Math.pow(1 - progress, 2);
+    var doc = document.documentElement;
+    var totalScroll = doc.scrollHeight - window.innerHeight;
 
-      path.style.strokeDashoffset = pathLength * (1 - eased);
+    if (totalScroll <= 0) {
+      // Page fits in viewport — draw fully
+      path.style.strokeDashoffset = 0;
+      return;
     }
 
-    window.addEventListener('scroll', updateSwoosh, { passive: true });
-    window.addEventListener('resize', updateSwoosh, { passive: true });
-    updateSwoosh();
+    // 0 at top, 1 at bottom
+    var progress = window.scrollY / totalScroll;
+    progress = Math.max(0, Math.min(1, progress));
+
+    // Avoid redraws when nothing meaningful changed
+    if (Math.abs(progress - lastProgress) < 0.001) return;
+    lastProgress = progress;
+
+    // Ease slightly for a more organic draw
+    var eased = 1 - Math.pow(1 - progress, 1.6);
+
+    path.style.strokeDashoffset = pathLength * (1 - eased);
   }
 
-  /* ---------- 2. Pop-reveal on scroll ---------- */
-  var pops = document.querySelectorAll('.pop-item');
-  if (pops.length && 'IntersectionObserver' in window) {
-    var popObserver = new IntersectionObserver(function (entries, obs) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var el = entry.target;
-        var delay = parseInt(el.getAttribute('data-pop-delay') || '0', 10);
-
-        setTimeout(function () {
-          el.classList.add('pop-in');
-          // Add a soft glow burst once
-          el.classList.add('glow-burst');
-          setTimeout(function () {
-            el.classList.remove('glow-burst');
-          }, 1000);
-        }, delay);
-
-        obs.unobserve(el);
-      });
-    }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -60px 0px'
-    });
-
-    pops.forEach(function (el) { popObserver.observe(el); });
-  } else {
-    // Fallback — just show everything
-    pops.forEach(function (el) { el.classList.add('pop-in'); });
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(updateLine);
+      ticking = true;
+    }
   }
+
+  function onResize() {
+    // Recompute everything
+    pathLength = path.getTotalLength();
+    path.style.strokeDasharray = pathLength;
+    lastProgress = -1;
+    updateLine();
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onResize);
+
+  // Sync height of the layer to the document on load
+  function syncLayerHeight() {
+    if (!layer) return;
+    var doc = document.documentElement;
+    layer.style.height = doc.scrollHeight + 'px';
+  }
+  window.addEventListener('load', syncLayerHeight);
+  window.addEventListener('resize', syncLayerHeight);
+  syncLayerHeight();
+
+  // Initial draw
+  updateLine();
 
 })();
