@@ -38,7 +38,34 @@
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-
+<!-- Scroll-drawn blue line across the whole page -->
+<div class="scroll-line-layer" aria-hidden="true">
+  <svg class="scroll-line-svg" viewBox="0 0 100 10000" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#2563eb"/>
+        <stop offset="40%"  stop-color="#3b82f6"/>
+        <stop offset="75%"  stop-color="#22d3ee"/>
+        <stop offset="100%" stop-color="#22d3ee"/>
+      </linearGradient>
+    </defs>
+    <path id="scrollLinePath"
+          d="M 50 0
+             C 90 600, 10 1200, 50 1800
+             S 90 3000, 50 3600
+             S 10 4800, 50 5400
+             S 90 6600, 50 7200
+             S 10 8400, 50 9000
+             S 90 9600, 50 10000"
+          fill="none"
+          stroke="url(#lineGrad)"
+          stroke-width="0.35"
+          stroke-linecap="round"
+          vector-effect="non-scaling-stroke"
+          stroke-opacity="0.85"/>
+  </svg>
+</div>
+  
 <!-- ===================== HEADER ===================== -->
 <header class="site-header" id="header">
   <div class="container nav-wrap">
@@ -105,56 +132,7 @@
       </aside>
     </div>
   </section>
-       <!-- ===================== BOLD IDEAS ===================== -->
-  <section class="bold-ideas" id="boldIdeas" aria-label="Creative approach">
-    <div class="container bold-ideas-inner">
-
-      <div class="bold-ideas-eyebrow pop-item" data-pop-delay="0">
-        <span class="dot"></span> Design &middot; Motion &middot; Data &middot; Delivery
-      </div>
-
-      <h2 class="bold-ideas-title">
-        <span class="pop-item" data-pop-delay="100">Bold</span>
-        <span class="pop-item" data-pop-delay="250">ideas,</span>
-        <span class="pop-item" data-pop-delay="400">brought</span>
-        <span class="pop-item" data-pop-delay="550">to life</span>
-
-        <!-- Scroll-drawn swoosh -->
-        <svg class="swoosh" viewBox="0 0 800 900" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <defs>
-            <linearGradient id="swooshGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%"   stop-color="#2563eb"/>
-              <stop offset="55%"  stop-color="#3b82f6"/>
-              <stop offset="100%" stop-color="#22d3ee"/>
-            </linearGradient>
-          </defs>
-          <path id="swooshPath"
-                d="M 30 40
-                   C 20 260, 120 620, 300 720
-                   S 560 640, 640 420
-                   S 720 140, 770 60"
-                fill="none"
-                stroke="url(#swooshGrad)"
-                stroke-width="38"
-                stroke-linecap="round"/>
-        </svg>
-      </h2>
-
-      <p class="bold-ideas-lead pop-item" data-pop-delay="700">
-        I combine <b>digital marketing</b>, <b>data precision</b>, and
-        <b>e-commerce operations</b> to help brands look sharp online —
-        from product listings and social campaigns to clean, accurate records.
-        Every project delivered with obsessive attention to detail.
-      </p>
-
-      <div class="bold-ideas-actions pop-item" data-pop-delay="850">
-        <a class="bold-ideas-link" href="#services">
-          <span class="link-dot"></span> Our approach
-        </a>
-      </div>
-
-    </div>
-  </section>
+      
   
       <!-- Animated gradient blobs -->
       <div class="reel-blob b1" aria-hidden="true"></div>
