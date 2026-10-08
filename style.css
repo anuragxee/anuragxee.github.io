@@ -9,6 +9,7 @@ body{
   font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   font-size:16px;line-height:1.65;color:#334155;background:#fff;
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  position:relative;
 }
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
@@ -444,7 +445,7 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
 .reveal.visible{opacity:1;filter:blur(0);transform:none}
 
 /* ============================================================
-   FLOATING 2D ANIMATED BOT (single clean block)
+   FLOATING 2D ANIMATED BOT
    ============================================================ */
 .bot-companion{
   position:fixed;
@@ -778,6 +779,49 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   }
 }
 
+/* ============================================================
+   SCROLL-DRAWN BLUE LINE — fixed behind all content
+   ============================================================ */
+.scroll-line-layer{
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(900px, 92vw);
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+.scroll-line-svg{
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 26px rgba(37,99,235,.35))
+          drop-shadow(0 0 52px rgba(34,211,238,.18));
+}
+.scroll-line-svg #scrollLinePath{ stroke-width: 3; }
+
+/* Ensure all sections stack above the fixed line */
+main#main{ position: relative; z-index: 2; }
+.site-footer{ position: relative; z-index: 2; }
+.site-header{ z-index: 100; }
+.bot-companion{ z-index: 90; }
+.sound-toggle{ z-index: 9997; }
+.scroll-progress{ z-index: 9999; }
+
+@media (max-width: 640px){
+  .scroll-line-layer{ width: 96vw; opacity: .9; }
+  .scroll-line-svg #scrollLinePath{ stroke-width: 4; }
+}
+@media (prefers-reduced-motion: reduce){
+  .scroll-line-svg #scrollLinePath{
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:980px){
   .hero-grid{grid-template-columns:1fr;gap:40px}
@@ -819,63 +863,4 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   .hero-tagline .tw-cursor{animation:none !important}
   .reveal{opacity:1;filter:none;transform:none;transition:none}
   .service-card,.portfolio-card{transition:none !important}
-}
-/* ============================================================
-   SCROLL-DRAWN BLUE LINE
-   Runs down the entire page, draws as you scroll
-   ============================================================ */
-
-.scroll-line-layer{
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(900px, 92vw);
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: visible;
-}
-
-.scroll-line-svg{
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  filter: drop-shadow(0 0 30px rgba(37,99,235,.3))
-          drop-shadow(0 0 60px rgba(34,211,238,.15));
-}
-
-.scroll-line-svg #scrollLinePath{
-  /* Stroke width in viewBox units scales with height — vector-effect keeps it visually consistent */
-  stroke-width: 4;
-}
-
-/* Ensure content sits above the line */
-body > main,
-body > header,
-body > footer{
-  position: relative;
-  z-index: 2;
-}
-
-/* Make sure the layer accounts for the full document height */
-body{
-  position: relative;
-}
-
-/* Reduce intensity on mobile so it doesn't interfere */
-@media (max-width: 640px){
-  .scroll-line-layer{
-    width: 96vw;
-    opacity: .85;
-  }
-}
-
-/* Reduced motion — show the line fully drawn */
-@media (prefers-reduced-motion: reduce){
-  .scroll-line-svg #scrollLinePath{
-    stroke-dasharray: none !important;
-    stroke-dashoffset: 0 !important;
-  }
 }
