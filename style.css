@@ -821,13 +821,13 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   .service-card,.portfolio-card{transition:none !important}
 }
 /* ============================================================
-   BOLD IDEAS — Lusion-style typography + swoosh
+   BOLD IDEAS — Scroll-drawn swoosh + pop reveal
    ============================================================ */
 .bold-ideas{
   position:relative;
   background:#f4f2ed;
   color:#0a0a0a;
-  padding:100px 0 100px;
+  padding:110px 0 130px;
   overflow:hidden;
   border-top:1px solid #e5e1d6;
 }
@@ -836,7 +836,10 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   max-width:1000px;
   margin:0 auto;
   padding:0 24px;
+  z-index:1;
 }
+
+/* Eyebrow */
 .bold-ideas-eyebrow{
   display:inline-flex;
   align-items:center;
@@ -847,7 +850,7 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   letter-spacing:.22em;
   text-transform:uppercase;
   color:#1e40af;
-  margin-bottom:30px;
+  margin-bottom:34px;
 }
 .bold-ideas-eyebrow .dot{
   width:8px;height:8px;border-radius:50%;
@@ -860,59 +863,78 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
   100%{box-shadow:0 0 0 0 rgba(37,99,235,0)}
 }
 
-/* Title with swoosh BEHIND the text, contained within the text area */
+/* Big title */
 .bold-ideas-title{
   position:relative;
   font-family:'Plus Jakarta Sans',sans-serif;
-  font-size:clamp(2.2rem,6.5vw,4.2rem);
+  font-size:clamp(2.4rem,7.2vw,4.8rem);
   font-weight:800;
   line-height:1.02;
   letter-spacing:-.035em;
   color:#0a0a0a;
   margin:0 0 34px;
-  max-width:14ch;
-  z-index:1;
+  z-index:2;
+  display:block;
 }
+.bold-ideas-title > span{
+  display:block;
+}
+
+/* Swoosh sits behind the title */
 .bold-ideas-title .swoosh{
   position:absolute;
-  top:-8%;
-  left:-6%;
-  width:130%;
-  height:130%;
+  top:-15%;
+  left:-10%;
+  width:120%;
+  height:230%;
   z-index:-1;
-  opacity:.85;
   pointer-events:none;
+  overflow:visible;
 }
+.bold-ideas-title .swoosh path{
+  /* The path length is roughly 2000 — we'll override in JS */
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset .15s linear;
+  filter: drop-shadow(0 4px 24px rgba(37,99,235,.25));
+}
+
 @media (max-width:700px){
   .bold-ideas-title .swoosh{
-    top:0%;
-    left:-10%;
-    width:140%;
-    height:120%;
-    opacity:.8;
+    top:-8%;
+    left:-12%;
+    width:130%;
+    height:190%;
+  }
+  .bold-ideas-title .swoosh path{
+    stroke-width:30;
   }
 }
 
+/* Lead paragraph */
 .bold-ideas-lead{
   max-width:600px;
   font-size:1.02rem;
   line-height:1.7;
   color:#3f3f46;
   margin-bottom:34px;
+  position:relative;
+  z-index:2;
 }
 .bold-ideas-lead b{
   color:#0a0a0a;
   font-weight:700;
 }
 
+/* Actions */
 .bold-ideas-actions{
   display:flex;
   flex-wrap:wrap;
   align-items:center;
   gap:20px;
+  position:relative;
+  z-index:2;
 }
-
-/* Secondary text link */
 .bold-ideas-link{
   display:inline-flex;
   align-items:center;
@@ -935,13 +957,51 @@ a.contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shad
 .bold-ideas-link:hover{border-color:#2563eb}
 .bold-ideas-link:hover .link-dot{background:#2563eb}
 
-/* Mobile adjustments */
+/* ============================================================
+   POP-REVEAL EFFECT
+   Elements with class "pop-item" scale up + fade in on scroll
+   ============================================================ */
+.pop-item{
+  opacity:0;
+  transform: translateY(30px) scale(.85);
+  filter: blur(6px);
+  transition:
+    opacity .7s cubic-bezier(.2,.9,.3,1.15),
+    transform .8s cubic-bezier(.2,.9,.3,1.15),
+    filter .7s ease;
+  will-change: opacity, transform, filter;
+}
+.pop-item.pop-in{
+  opacity:1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Extra flourish — a soft glow burst on first pop */
+.pop-item.pop-in.glow-burst{
+  animation: popGlow .9s ease-out;
+}
+@keyframes popGlow{
+  0%   { box-shadow: 0 0 0 0 rgba(37,99,235,.35); }
+  70%  { box-shadow: 0 0 0 20px rgba(37,99,235,0); }
+  100% { box-shadow: 0 0 0 0 rgba(37,99,235,0); }
+}
+
+/* Mobile */
 @media (max-width:640px){
-  .bold-ideas{padding:70px 0 70px}
+  .bold-ideas{padding:70px 0 90px}
   .bold-ideas-lead{font-size:.96rem}
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion:reduce){
   .bold-ideas-eyebrow .dot{animation:none !important}
+  .bold-ideas-title .swoosh path{
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+  .pop-item{
+    opacity:1; transform:none; filter:none;
+    transition:none;
+  }
 }
