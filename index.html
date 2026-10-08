@@ -38,34 +38,7 @@
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-<!-- Scroll-drawn blue line across the whole page -->
-<div class="scroll-line-layer" aria-hidden="true">
-  <svg class="scroll-line-svg" viewBox="0 0 100 10000" preserveAspectRatio="none">
-    <defs>
-      <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%"   stop-color="#2563eb"/>
-        <stop offset="40%"  stop-color="#3b82f6"/>
-        <stop offset="75%"  stop-color="#22d3ee"/>
-        <stop offset="100%" stop-color="#22d3ee"/>
-      </linearGradient>
-    </defs>
-    <path id="scrollLinePath"
-          d="M 50 0
-             C 90 600, 10 1200, 50 1800
-             S 90 3000, 50 3600
-             S 10 4800, 50 5400
-             S 90 6600, 50 7200
-             S 10 8400, 50 9000
-             S 90 9600, 50 10000"
-          fill="none"
-          stroke="url(#lineGrad)"
-          stroke-width="0.35"
-          stroke-linecap="round"
-          vector-effect="non-scaling-stroke"
-          stroke-opacity="0.85"/>
-  </svg>
-</div>
-  
+
 <!-- ===================== HEADER ===================== -->
 <header class="site-header" id="header">
   <div class="container nav-wrap">
@@ -91,6 +64,32 @@
 </header>
 
 <main id="main">
+
+  <!-- ===================== SCROLL-DRAWN BLUE LINE ===================== -->
+  <div class="scroll-line-layer" aria-hidden="true">
+    <svg class="scroll-line-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#2563eb"/>
+          <stop offset="40%"  stop-color="#3b82f6"/>
+          <stop offset="75%"  stop-color="#22d3ee"/>
+          <stop offset="100%" stop-color="#22d3ee"/>
+        </linearGradient>
+      </defs>
+      <path id="scrollLinePath"
+            d="M 50 0
+               C 88 12, 12 26, 50 40
+               S 88 54, 50 68
+               S 12 82, 50 92
+               S 88 100, 50 100"
+            fill="none"
+            stroke="url(#lineGrad)"
+            stroke-width="1.2"
+            stroke-linecap="round"
+            vector-effect="non-scaling-stroke"
+            stroke-opacity="0.9"/>
+    </svg>
+  </div>
 
   <!-- ===================== HERO ===================== -->
   <section class="hero" id="home">
@@ -132,21 +131,7 @@
       </aside>
     </div>
   </section>
-      
-  
-      <!-- Animated gradient blobs -->
-      <div class="reel-blob b1" aria-hidden="true"></div>
-      <div class="reel-blob b2" aria-hidden="true"></div>
-      <div class="reel-blob b3" aria-hidden="true"></div>
 
-      <!-- Center message -->
-      <div class="reel-center">
-        <div class="reel-logo">AN</div>
-        <h3 class="reel-title">Anurag Digital Services</h3>
-        <p class="reel-sub">Your Growth &middot; My Skills &middot; Our Success</p>
-      </div>
-    </div>
-  </div>
   <!-- ===================== STATS BAR ===================== -->
   <section class="stats-bar" aria-label="Quick facts">
     <div class="container stats-grid">
@@ -507,7 +492,7 @@
         <li>Patna, Bihar, India</li>
       </ul>
       <div class="social-row">
-        <a class="social-link" href="https://www.linkedin.com/in/anurak-kumar-x" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+        <a class="social-link" href="https://www.linkedin.com/in/anurag-kumar-x" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.5 4.7 5.9V21h-4v-5.6c0-1.3 0-3.1-1.9-3.1s-2.2 1.5-2.2 3V21h-4z"/></svg>
         </a>
         <a class="social-link is-placeholder" href="#" aria-label="YouTube (link coming soon)" title="Coming soon">
@@ -529,7 +514,7 @@
   </div>
 </footer>
 
-<!-- Floating 2D animated bot (single instance) -->
+<!-- Floating 2D animated bot -->
 <div class="bot-companion" id="botCompanion" aria-hidden="true">
   <div class="bot-3d">
     <div class="bot-scene">
@@ -578,7 +563,7 @@
 <!-- Main site script -->
 <script src="script.js"></script>
 
-<!-- Voiceflow AI chatbot (AVA) -->
+<!-- Voiceflow AI chatbot -->
 <script type="text/javascript">
   (function(d, t) {
     var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
