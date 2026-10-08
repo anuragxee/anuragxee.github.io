@@ -335,7 +335,7 @@
     osc.stop(now + 0.1);
   }
 
-  /* ---------- HOVER tick (soft) ---------- */
+  /* ---------- HOVER tick (soft, desktop only) ---------- */
   function playHover() {
     if (!soundEnabled) return;
     var ctx = getCtx(); if (!ctx) return;
@@ -361,29 +361,62 @@
       if (!greetingAudio) {
         greetingAudio = new Audio('assets/greeting.mp3');
         greetingAudio.preload = 'auto';
-        greetingAudio.volume = 0.9;
+        greetingAudio.volume = 1.0;
+        greetingAudio.setAttribute('playsinline', '');
       }
-      greetingAudio.currentTime = 0;
+      // Reset to start in case it was paused
+      try { greetingAudio.currentTime = 0; } catch (e) {}
+
       var p = greetingAudio.play();
-      if (p && typeof p.catch === 'function') {
-        p.catch(function () { /* blocked or file missing — ignore */ });
+      if (p && typeof p.then === 'function') {
+        p.then(function () {
+          /* playing successfully */
+        }).catch(function (err) {
+          /* Autoplay blocked or file missing — retry once on next user gesture */
+          greetingPlayed = false;
+          console.warn('[Greeting] Play blocked:', err && err.message);
+        });
       }
-    } catch (e) { /* silent */ }
+    } catch (e) {
+      greetingPlayed = false;
+    }
   }
 
-  /* ---------- CLICK handler — fires greeting once + plays tick ---------- */
-  var clickTargets = 'a, button, .btn, .service-card, .portfolio-card, .skill-item, .contact-card, input, select, textarea, .nav-link';
+  /* Preload the greeting so it's ready when needed */
+  try {
+    greetingAudio = new Audio('assets/greeting.mp3');
+    greetingAudio.preload = 'auto';
+    greetingAudio.volume = 1.0;
+    greetingAudio.setAttribute('playsinline', '');
+  } catch (e) {}
 
-  document.addEventListener('click', function (e) {
-    if (e.target.closest('.sound-toggle')) return;
-    playGreeting();
-    if (e.target.closest(clickTargets)) playClick();
-  }, true);
+  /* ---------- GLOBAL CLICK/TOUCH handlers ----------
+     Mobile requires the play() call to be inside the real gesture.
+     We use 'pointerdown' because it fires first on every device,
+     and add 'touchend' as a fallback for older Android. */
+  var clickTargets = 'a, button, .btn, .service-card, .portfolio-card, .skill-item, .contact-card, input, select, textarea, .nav-link, body';
 
-  /* Also fire greeting on first touch (mobile) */
-  document.addEventListener('touchstart', function () {
+  function handleFirstGesture(e) {
+    // Skip only the sound-toggle button
+    if (e.target && e.target.closest && e.target.closest('.sound-toggle')) return;
+
     playGreeting();
-  }, { passive: true, once: true });
+
+    var target = e.target && e.target.closest ? e.target.closest(clickTargets) : null;
+    if (target && target.tagName !== 'BODY') {
+      // Small delay so the click sound plays after the greeting starts
+      setTimeout(playClick, 120);
+    }
+  }
+
+  // pointerdown fires BEFORE click on all modern browsers, both touch & mouse
+  document.addEventListener('pointerdown', handleFirstGesture, { passive: true });
+
+  // Extra fallback for older mobile browsers that don't support pointerdown
+  if (!window.PointerEvent) {
+    document.addEventListener('touchstart', handleFirstGesture, { passive: true, once: false });
+    document.addEventListener('click', handleFirstGesture, { passive: true, once: false });
+  }
 
   /* Hover sound (desktop only) */
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
@@ -405,15 +438,16 @@
       try { localStorage.setItem('ads_sound_muted', soundEnabled ? '0' : '1'); } catch (err) {}
 
       if (soundEnabled) {
-        setTimeout(playClick, 60);
+        // Reset greeting flag so the next tap can try again
+        greetingPlayed = false;
+        setTimeout(playClick, 80);
       } else if (greetingAudio) {
-        greetingAudio.pause();
+        try { greetingAudio.pause(); } catch (err) {}
       }
     });
   }
 
 })();
-
 /* ============================================================
    SCROLL-DRAWN BLUE LINE
    Reveals the stroke progressively as the user scrolls
