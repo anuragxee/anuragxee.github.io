@@ -413,3 +413,73 @@
   }
 
 })();
+/* ============================================================
+   SCROLL-DRAWN SWOOSH + POP REVEAL
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ---------- 1. Draw the swoosh based on scroll progress ---------- */
+  var path = document.getElementById('swooshPath');
+  var section = document.getElementById('boldIdeas');
+
+  if (path && section) {
+    // Get actual path length so the animation is exact
+    var pathLength = path.getTotalLength();
+    path.style.strokeDasharray = pathLength;
+    path.style.strokeDashoffset = pathLength;
+
+    function updateSwoosh() {
+      var rect = section.getBoundingClientRect();
+      var vh = window.innerHeight;
+
+      // Progress: 0 when section enters bottom of viewport,
+      //           1 when section top hits 25% of viewport
+      var start = vh;                        // top of section at bottom of viewport
+      var end   = vh * 0.25;                 // top of section at 25% viewport height
+      var rawProgress = (start - rect.top) / (start - end);
+      var progress = Math.max(0, Math.min(1, rawProgress));
+
+      // Eased progress for smoother draw
+      var eased = 1 - Math.pow(1 - progress, 2);
+
+      path.style.strokeDashoffset = pathLength * (1 - eased);
+    }
+
+    window.addEventListener('scroll', updateSwoosh, { passive: true });
+    window.addEventListener('resize', updateSwoosh, { passive: true });
+    updateSwoosh();
+  }
+
+  /* ---------- 2. Pop-reveal on scroll ---------- */
+  var pops = document.querySelectorAll('.pop-item');
+  if (pops.length && 'IntersectionObserver' in window) {
+    var popObserver = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var delay = parseInt(el.getAttribute('data-pop-delay') || '0', 10);
+
+        setTimeout(function () {
+          el.classList.add('pop-in');
+          // Add a soft glow burst once
+          el.classList.add('glow-burst');
+          setTimeout(function () {
+            el.classList.remove('glow-burst');
+          }, 1000);
+        }, delay);
+
+        obs.unobserve(el);
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -60px 0px'
+    });
+
+    pops.forEach(function (el) { popObserver.observe(el); });
+  } else {
+    // Fallback — just show everything
+    pops.forEach(function (el) { el.classList.add('pop-in'); });
+  }
+
+})();
